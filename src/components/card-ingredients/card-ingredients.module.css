@@ -1,0 +1,27 @@
+.ingredients__list {
+    list-style: none;
+    margin: 0 0 0 16px;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 24px;
+    row-gap: 32px;
+}
+
+.ingredients__item {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+}
+
+.ingredients__image {
+    composes: ml-4 mr-4 from global;
+}
+
+.ingredients__price {
+    display: flex;
+    justify-content: center;
+    composes: mt-1 mb-1 from global;
+}
