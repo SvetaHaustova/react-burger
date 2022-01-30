@@ -3,7 +3,8 @@ import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktiku
 import PropTypes from 'prop-types';
 
 function BurgerConstructor({ ingredients, onOpen }) {
-    const bun = ingredients && ingredients.find(item => item.type === 'bun');
+    const bun = ingredients && ingredients.find(ingredient => ingredient.type === 'bun');
+    const filterIngredients = ingredients.filter(ingredient => ingredient.type === 'main' || ingredient.type === 'sauce').slice(1, );
     return (
         <section className={styles.constructor}>
             <div className={styles.constructor__container}>
@@ -17,7 +18,7 @@ function BurgerConstructor({ ingredients, onOpen }) {
             </div>
             <ul className={styles.constructor__list}>
                 {
-                    ingredients.filter(item => item.type === 'main' || item.type === 'sauce').slice(1, ).map((ingredient) => (
+                    filterIngredients.map((ingredient) => (
                         <li className={styles.constructor__item} key={ingredient._id}>
                             <DragIcon type="primary" />
                             <ConstructorElement

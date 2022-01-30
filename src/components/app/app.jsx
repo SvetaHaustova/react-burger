@@ -3,20 +3,19 @@ import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import Modal from '../modal/modal';
-import ModalOverlay from '../modal-overlay/modal-overlay';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
 import styles from './app.module.css';
 import { API_URL } from '../../utils/constants';
 
 function App() {
-  const [ingredients, setIngredients] = React.useState([] as any[]);
+  const [ingredients, setIngredients] = React.useState([]);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [currentModal, setCurrentModal] = React.useState('');
   const [currentIngredient, setCurrentIngredient] = React.useState({});
   
   React.useEffect(() => {
-    fetch(API_URL)
+    fetch(`${API_URL}/ingredients`)
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -34,7 +33,7 @@ function App() {
     setCurrentModal('orderDetails');
   }
 
-  const openModalIngredientDetails = (id: string) => {
+  const openModalIngredientDetails = (id) => {
     if (ingredients) {
       setCurrentIngredient(ingredients.find((ingredient) => ingredient._id === id));
     }
@@ -54,15 +53,12 @@ function App() {
         <BurgerConstructor ingredients={ingredients} onOpen={openModalOrderDetails} />
       </main>
       { isModalOpen &&
-        <>
-          <ModalOverlay onClose={closeModal} />
           <Modal onClose={closeModal} header={`${currentModal === 'ingredientDetails' ? "Детали ингредиента" : ""}`}>
             { currentModal === 'ingredientDetails'
               ? <IngredientDetails ingredient={currentIngredient} />
               : <OrderDetails />
             }
           </Modal>
-        </>
       }
     </div>
   );

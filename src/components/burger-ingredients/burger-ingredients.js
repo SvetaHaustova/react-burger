@@ -5,7 +5,11 @@ import CardIngredients from '../card-ingredients/card-ingredients';
 import PropTypes from 'prop-types';
 
 function BurgerIngredients({ ingredients, onOpen }) {
-    const [current, setCurrent] = React.useState("Булки");
+    const [current, setCurrent] = React.useState("buns");
+    const bun = ingredients.filter((ingredient) => ingredient.type === "bun");
+    const sauce = ingredients.filter((ingredient) => ingredient.type === "sauce");
+    const main = ingredients.filter((ingredient) => ingredient.type === "main");
+
     return (
         <section className={styles.ingredients}>
             <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
@@ -21,9 +25,9 @@ function BurgerIngredients({ ingredients, onOpen }) {
                 </Tab>
             </div>
             <div className={styles.ingredients__container}>
-                <CardIngredients ingredients={ingredients} type="bun" name="Булки" onOpen={onOpen} />
-                <CardIngredients ingredients={ingredients} type="sauce" name="Соусы" onOpen={onOpen} />
-                <CardIngredients ingredients={ingredients} type="main" name="Начинки" onOpen={onOpen} />
+                <CardIngredients ingredients={bun} name="Булки" onOpen={onOpen} />
+                <CardIngredients ingredients={sauce} name="Соусы" onOpen={onOpen} />
+                <CardIngredients ingredients={main} name="Начинки" onOpen={onOpen} />
             </div>
         </section>
     );

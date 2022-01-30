@@ -24,6 +24,12 @@
     composes: mr-6 ml-6 from global;
 }
 
+.header__link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+}
+
 .header__login {
     composes: header__item;
     margin: 0 0 0 289px;

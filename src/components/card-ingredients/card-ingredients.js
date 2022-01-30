@@ -2,7 +2,7 @@ import styles from './card-ingredients.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 
-function CardIngredients({ ingredients, type, name, onOpen }) {
+function CardIngredients({ ingredients, name, onOpen }) {
 
     const handleClick = (e) => {
         onOpen(e.currentTarget.id);
@@ -13,7 +13,7 @@ function CardIngredients({ ingredients, type, name, onOpen }) {
             <h2 className="text text_type_main-medium mt-10 mb-6">{name}</h2>
             <ul className={styles.ingredients__list}>
                 {
-                    ingredients.filter(item => item.type === type).map((ingredient) => (
+                    ingredients.map((ingredient) => (
                         <li className={styles.ingredients__item} key={ingredient._id} id={ingredient._id} onClick={handleClick}>
                             <Counter count={1} size="default" />
                             <img className={styles.ingredients__image} src={ingredient.image} alt={ingredient.name} />
@@ -45,7 +45,6 @@ CardIngredients.propTypes = {
         image_large: PropTypes.string.isRequired,
         __v: PropTypes.number
     })).isRequired,
-    type: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     onOpen: PropTypes.func.isRequired,
 }

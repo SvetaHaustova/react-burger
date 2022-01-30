@@ -29,7 +29,7 @@ function IngredientDetails({ ingredient }) {
 }
 
 IngredientDetails.propTypes = {
-    ingredient: PropTypes.oneOfType([PropTypes.object, PropTypes.shape({
+    ingredient: PropTypes.objectOf(PropTypes.shape({
         _id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
@@ -42,8 +42,7 @@ IngredientDetails.propTypes = {
         image_mobile: PropTypes.string.isRequired,
         image_large: PropTypes.string.isRequired,
         __v: PropTypes.number.isRequired,
-    }),
-    ]).isRequired,
+    })).isRequired,
 };
 
 export default IngredientDetails;
