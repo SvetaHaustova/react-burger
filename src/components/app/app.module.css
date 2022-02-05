@@ -1,0 +1,10 @@
+.page {
+  background: #131316;
+  max-width: 1920px;
+  height: 100vh;
+}
+
+.page__burger {
+  display: flex;
+  justify-content: center;
+}

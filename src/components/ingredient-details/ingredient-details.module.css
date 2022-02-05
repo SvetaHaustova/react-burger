@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+    composes: pl-25 pr-25 pb-15 from global;
+}
+
+.container__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    column-gap: 20px;
+    composes: text text_type_main-default text_color_inactive from global;
+}
+
+.container__item {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+}
+
+.container__image {
+    width: 480px;
+}
+
+.container__text {
+    margin: 0;
+}

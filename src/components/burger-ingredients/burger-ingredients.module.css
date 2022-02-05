@@ -1,0 +1,24 @@
+.ingredients {
+    width: 600px;
+    composes: mr-10 from global;
+    max-height: calc(100vh - 88px);
+    box-sizing: border-box;
+}
+
+.ingredients__container {
+    height: 76%;
+    overflow-y: scroll;
+}
+
+.ingredients__container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.ingredients__container::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+
+.ingredients__container::-webkit-scrollbar-thumb {
+    background: #8585AD;
+    box-sizing: border-box;
+}

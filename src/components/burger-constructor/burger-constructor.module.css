@@ -1,0 +1,59 @@
+.constructor {
+    width: 600px;
+    composes: mt-25 mr-4 pl-4 from global;
+    box-sizing: border-box;
+    max-height: calc(100vh - 188px);
+    box-sizing: border-box;
+}
+
+.constructor__container {
+    composes: pl-8 mb-4 from global;
+}
+
+.constructor__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    height: 45%;
+}
+
+.constructor__list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.constructor__list::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+
+.constructor__list::-webkit-scrollbar-thumb {
+    background: #8585AD;
+    box-sizing: border-box;
+}
+
+.constructor__item {
+    display: flex;
+    align-items: center;
+    column-gap: 12px;
+    composes: mb-4 from global;
+}
+
+.constructor__total {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 52px;
+    composes: mt-10 from global;
+}
+
+.constructor__price svg {
+    width: 33px;
+    height: 33px;
+}
+
+.constructor__price {
+    display: flex;
+    justify-content: center;
+    composes: mr-10 from global;
+}
