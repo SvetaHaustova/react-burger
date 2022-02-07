@@ -1,8 +1,11 @@
 import styles from './burger-constructor.module.css';
+import React from 'react';
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
+import { IngredientsContext } from '../../contexts/ingredients-context';
 
-function BurgerConstructor({ ingredients, onOpen }) {
+function BurgerConstructor({ onOpen }) {
+    const { ingredients } = React.useContext(IngredientsContext);
     const bun = ingredients && ingredients.find(ingredient => ingredient.type === 'bun');
     const filterIngredients = ingredients.filter(ingredient => ingredient.type === 'main' || ingredient.type === 'sauce').slice(1, );
     return (
@@ -52,20 +55,6 @@ function BurgerConstructor({ ingredients, onOpen }) {
 }
 
 BurgerConstructor.propTypes = {
-    ingredients: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        proteins: PropTypes.number.isRequired,
-        fat: PropTypes.number.isRequired,
-        carbohydrates: PropTypes.number.isRequired,
-        calories: PropTypes.number.isRequired,
-        price: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired,
-        image_mobile: PropTypes.string.isRequired,
-        image_large: PropTypes.string.isRequired,
-        __v: PropTypes.number
-    })).isRequired,
     onOpen: PropTypes.func.isRequired,
 }
 

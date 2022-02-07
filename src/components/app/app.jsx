@@ -7,6 +7,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
 import styles from './app.module.css';
 import { API_URL } from '../../utils/constants';
+import { IngredientsContext } from '../../contexts/ingredients-context';
 
 function App() {
   const [ingredients, setIngredients] = React.useState([]);
@@ -49,8 +50,10 @@ function App() {
     <div className={styles.page}>
       <AppHeader />
       <main className={styles.page__burger}>
-        <BurgerIngredients ingredients={ingredients} onOpen={openModalIngredientDetails} />
-        <BurgerConstructor ingredients={ingredients} onOpen={openModalOrderDetails} />
+        <IngredientsContext.Provider value={{ ingredients, setIngredients }}>
+          <BurgerIngredients onOpen={openModalIngredientDetails} />
+          <BurgerConstructor onOpen={openModalOrderDetails} />
+        </IngredientsContext.Provider>
       </main>
       { isModalOpen &&
           <Modal onClose={closeModal} header={`${currentModal === 'ingredientDetails' ? "Детали ингредиента" : ""}`}>
