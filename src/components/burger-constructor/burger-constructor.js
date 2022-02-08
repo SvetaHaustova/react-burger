@@ -17,13 +17,19 @@ function totalPriceReducer(state, action) {
         }
 }
 
-function BurgerConstructor({ onOpen }) {
+function BurgerConstructor({ makeOrder }) {
     const { ingredients } = React.useContext(IngredientsContext);
     const [totalPriceState, totalPriceDispatcher] = React.useReducer(totalPriceReducer, totalPriceInitialState);
 
     const bunIngredient = ingredients && ingredients.find(ingredient => ingredient.type === 'bun');
-    const otherIngredients = ingredients && ingredients.filter(ingredient => ingredient.type !== 'bun').slice(0, 3);
-    const totalPrice = bunIngredient && otherIngredients.map((ingredient) => ingredient.price).reduce((sum, price) => sum + price, 0) + bunIngredient.price * 2;
+    const otherIngredients = ingredients && ingredients.filter(ingredient => ingredient.type !== 'bun').slice(0, 2);
+    const totalPrice = bunIngredient && otherIngredients.map((ingredient) => ingredient.price)
+                                                        .reduce((sum, price) => sum + price, 0) + bunIngredient.price * 2;
+
+    const handleOrder = () => {
+        const burgerIngredients = [bunIngredient, ...otherIngredients].map(((item) => item._id));
+        makeOrder(burgerIngredients);
+    }
 
     React.useEffect(() => {
         if (ingredients) {
@@ -73,14 +79,14 @@ function BurgerConstructor({ onOpen }) {
                     <p className="text text_type_digits-medium mr-2">{totalPriceState.totalPrice}</p>
                     <CurrencyIcon type="primary" />
                 </div>
-                <Button type="primary" size="medium" onClick={onOpen}>Оформить заказ</Button>
+                <Button type="primary" size="medium" onClick={handleOrder}>Оформить заказ</Button>
             </div>
         </section>
     );
 }
 
 BurgerConstructor.propTypes = {
-    onOpen: PropTypes.func.isRequired,
+    makeOrder: PropTypes.func.isRequired,
 }
 
 export default BurgerConstructor;

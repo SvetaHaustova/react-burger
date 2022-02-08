@@ -6,65 +6,64 @@ import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
 import styles from './app.module.css';
-import { API_URL } from '../../utils/constants';
 import { IngredientsContext } from '../../contexts/ingredients-context';
+import * as api from '../../utils/api';
 
 function App() {
-  const [ingredients, setIngredients] = React.useState([]);
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [currentModal, setCurrentModal] = React.useState('');
-  const [currentIngredient, setCurrentIngredient] = React.useState({});
-  
-  React.useEffect(() => {
-    fetch(`${API_URL}/ingredients`)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-      } else {
-          return Promise.reject(`Ошибка ${res.status}`);
-      }})
-      .then((res) => {
-        setIngredients(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, [])
+    const [ingredients, setIngredients] = React.useState([]);
+    const [currentIngredient, setCurrentIngredient] = React.useState(null);
+    const [orderNumber, setOrderNumber] = React.useState(null);
 
-  const openModalOrderDetails = () => {
-    setIsModalOpen(true);
-    setCurrentModal('orderDetails');
-  }
+    React.useEffect(() => {
+        api.getIngredients()
+        .then((res) => {
+            setIngredients(res.data);
+        })
+        .catch((err) => console.log(err));
+    }, [])
 
-  const openModalIngredientDetails = (id) => {
-    if (ingredients) {
-      setCurrentIngredient(ingredients.find((ingredient) => ingredient._id === id));
+    const openModalIngredientDetails = (id) => {
+        if (ingredients) {
+            setCurrentIngredient(ingredients.find((ingredient) => ingredient._id === id));
+        }
     }
-    setIsModalOpen(true);
-    setCurrentModal('ingredientDetails');
-  }
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+    const closeModal = () => {
+        setCurrentIngredient(null);
+        setOrderNumber(null);
+    };
 
-  return (
-    <div className={styles.page}>
-      <AppHeader />
-      <main className={styles.page__burger}>
-        <IngredientsContext.Provider value={{ ingredients, setIngredients }}>
-          <BurgerIngredients onOpen={openModalIngredientDetails} />
-          <BurgerConstructor onOpen={openModalOrderDetails} />
-        </IngredientsContext.Provider>
-      </main>
-      { isModalOpen &&
-          <Modal onClose={closeModal} header={`${currentModal === 'ingredientDetails' ? "Детали ингредиента" : ""}`}>
-            { currentModal === 'ingredientDetails'
-              ? <IngredientDetails ingredient={currentIngredient} />
-              : <OrderDetails />
+    const makeOrder = (data) => {
+        api.sendOrder(data)
+        .then((res) => {
+            setOrderNumber(res.order.number);
+        })
+        .catch((err) => console.log(err));
+    }
+
+    return (
+        <div className={styles.page}>
+            <AppHeader />
+            { ingredients.length > 0 &&
+                <main className={styles.page__burger}>
+                    <IngredientsContext.Provider value={{ ingredients, setIngredients }}>
+                        <BurgerIngredients onOpen={openModalIngredientDetails} />
+                        <BurgerConstructor makeOrder={makeOrder} />
+                    </IngredientsContext.Provider>
+                </main>
             }
-          </Modal>
-      }
-    </div>
-  );
+            { currentIngredient &&
+                <Modal onClose={closeModal} header="Детали ингредиента">
+                    <IngredientDetails ingredient={currentIngredient} />
+                </Modal>
+            }
+            { orderNumber &&
+                <Modal onClose={closeModal} header="">
+                    <OrderDetails orderNumber={orderNumber} />
+                </Modal>
+            }
+        </div>
+    );
 }
 
 export default App;
