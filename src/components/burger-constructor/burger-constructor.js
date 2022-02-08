@@ -4,24 +4,49 @@ import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktiku
 import PropTypes from 'prop-types';
 import { IngredientsContext } from '../../contexts/ingredients-context';
 
+const totalPriceInitialState = { totalPrice: 0 };
+
+function totalPriceReducer(state, action) {
+    switch (action.type) {
+        case "set":
+            return { totalPrice: action.payload };
+        case "reset":
+            return totalPriceInitialState;
+        default:
+            throw new Error(`Wrong type of action: ${action.type}`);
+        }
+}
+
 function BurgerConstructor({ onOpen }) {
     const { ingredients } = React.useContext(IngredientsContext);
-    const bun = ingredients && ingredients.find(ingredient => ingredient.type === 'bun');
-    const filterIngredients = ingredients.filter(ingredient => ingredient.type === 'main' || ingredient.type === 'sauce').slice(1, );
+    const [totalPriceState, totalPriceDispatcher] = React.useReducer(totalPriceReducer, totalPriceInitialState);
+
+    const bunIngredient = ingredients && ingredients.find(ingredient => ingredient.type === 'bun');
+    const otherIngredients = ingredients && ingredients.filter(ingredient => ingredient.type !== 'bun').slice(0, 3);
+    const totalPrice = bunIngredient && otherIngredients.map((ingredient) => ingredient.price).reduce((sum, price) => sum + price, 0) + bunIngredient.price * 2;
+
+    React.useEffect(() => {
+        if (ingredients) {
+            totalPriceDispatcher({ type: "set", payload: totalPrice });
+        } else {
+            totalPriceDispatcher({ type: "reset" });
+        }
+    }, [totalPrice, ingredients])
+
     return (
         <section className={styles.constructor}>
             <div className={styles.constructor__container}>
-                {bun && <ConstructorElement
+                {bunIngredient && <ConstructorElement
                     type="top"
                     isLocked={true}
-                    text={`${bun.name} (верх)`}
-                    price={bun.price}
-                    thumbnail={bun.image}
+                    text={`${bunIngredient.name} (верх)`}
+                    price={bunIngredient.price}
+                    thumbnail={bunIngredient.image}
                 />}
             </div>
             <ul className={styles.constructor__list}>
                 {
-                    filterIngredients.map((ingredient) => (
+                    otherIngredients.map((ingredient) => (
                         <li className={styles.constructor__item} key={ingredient._id}>
                             <DragIcon type="primary" />
                             <ConstructorElement
@@ -35,17 +60,17 @@ function BurgerConstructor({ onOpen }) {
                 }
             </ul>
             <div className={styles.constructor__container}>
-                {bun && <ConstructorElement
+                {bunIngredient && <ConstructorElement
                     type="bottom"
                     isLocked={true}
-                    text={`${bun.name} (низ)`}
-                    price={bun.price}
-                    thumbnail={bun.image}
+                    text={`${bunIngredient.name} (низ)`}
+                    price={bunIngredient.price}
+                    thumbnail={bunIngredient.image}
                 />}
             </div>
             <div className={styles.constructor__total}>
                 <div className={styles.constructor__price}>
-                    <p className="text text_type_digits-medium mr-2">610</p>
+                    <p className="text text_type_digits-medium mr-2">{totalPriceState.totalPrice}</p>
                     <CurrencyIcon type="primary" />
                 </div>
                 <Button type="primary" size="medium" onClick={onOpen}>Оформить заказ</Button>
