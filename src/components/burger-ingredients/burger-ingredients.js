@@ -1,11 +1,13 @@
 import styles from './burger-ingredients.module.css';
 import React from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { IngredientsContext } from '../../contexts/ingredients-context';
 import CardIngredients from '../card-ingredients/card-ingredients';
 import PropTypes from 'prop-types';
 
-function BurgerIngredients({ ingredients, onOpen }) {
+function BurgerIngredients({ onOpen }) {
     const [current, setCurrent] = React.useState("buns");
+    const { ingredients } = React.useContext(IngredientsContext);
     const bun = ingredients.filter((ingredient) => ingredient.type === "bun");
     const sauce = ingredients.filter((ingredient) => ingredient.type === "sauce");
     const main = ingredients.filter((ingredient) => ingredient.type === "main");
@@ -34,20 +36,6 @@ function BurgerIngredients({ ingredients, onOpen }) {
 }
 
 BurgerIngredients.propTypes = {
-    ingredients: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        proteins: PropTypes.number.isRequired,
-        fat: PropTypes.number.isRequired,
-        carbohydrates: PropTypes.number.isRequired,
-        calories: PropTypes.number.isRequired,
-        price: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired,
-        image_mobile: PropTypes.string.isRequired,
-        image_large: PropTypes.string.isRequired,
-        __v: PropTypes.number
-    })).isRequired,
     onOpen: PropTypes.func.isRequired,
 }
 
