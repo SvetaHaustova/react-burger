@@ -1,1 +1,1 @@
-# Проект: react-burger
+# Проект: React-burger
