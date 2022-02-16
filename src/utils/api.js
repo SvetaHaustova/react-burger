@@ -8,7 +8,7 @@ function handleCheckResponse(res) {
     }
 }
 
-export const getIngredients = () => {
+export const getIngredientsRequest = () => {
     return fetch(`${API_URL}/ingredients`, {
         method: "GET",
         headers: {
@@ -18,7 +18,7 @@ export const getIngredients = () => {
     .then((res) => handleCheckResponse(res));
 }
 
-export const sendOrder = (data) => {
+export const postOrderRequest = (data) => {
     return fetch(`${API_URL}/orders`, {
         method: "POST",
         headers: {
