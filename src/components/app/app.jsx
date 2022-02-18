@@ -1,5 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
@@ -23,8 +25,10 @@ function App() {
             <AppHeader />
             { ingredients.length > 0 &&
                 <main className={styles.page__burger}>
-                    <BurgerIngredients />
-                    <BurgerConstructor />
+                    <DndProvider backend={HTML5Backend}>
+                        <BurgerIngredients />
+                        <BurgerConstructor />
+                    </DndProvider>
                 </main>
             }
             { currentIngredient &&

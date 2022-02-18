@@ -13,6 +13,8 @@ export const CLOSE_ORDER = "CLOSE_ORDER";
 
 export const ADD_INGREDIENT_CONSTRUCTOR = "ADD_INGREDIENT_CONSTRUCTOR";
 export const REMOVE_INGREDIENT_CONSTRUCTOR = "REMOVE_INGREDIENT_CONSTRUCTOR";
+export const RESET_CONSTRUCTOR = "RESET_CONSTRUCTOR";
+export const MOVE_INGREDIENT_CONSTRUCTOR = "MOVE_INGREDIENT_CONSTRUCTOR";
 
 export function getIngredients() {
     return function(dispatch) {
@@ -46,6 +48,9 @@ export function postOrder(data) {
                 type: POST_ORDER_SUCCESS,
                 orderNumber: res.order.number
             });
+            dispatch({
+                type: RESET_CONSTRUCTOR
+            });
         })
         .catch((err) => {
             console.log(err);
@@ -75,10 +80,10 @@ export function closeOrder() {
     };
 }
 
-export function addIngredient(item) {
+export function addIngredient(item, uuid) {
     return {
         type: ADD_INGREDIENT_CONSTRUCTOR,
-        item
+        item: {...item, uuid: uuid}
     };
 }
 
@@ -86,5 +91,13 @@ export function removeIngredient(uuid) {
     return {
         type: REMOVE_INGREDIENT_CONSTRUCTOR,
         uuid
+    };
+}
+
+export function moveIngredient(dragIndex, hoverIndex) {
+    return {
+        type: MOVE_INGREDIENT_CONSTRUCTOR,
+        dragIndex,
+        hoverIndex
     };
 }

@@ -1,0 +1,22 @@
+.ingredient__item {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+}
+
+.ingredient__image {
+    composes: ml-4 mr-4 from global;
+}
+
+.ingredient__price {
+    display: flex;
+    justify-content: center;
+    composes: mt-1 mb-1 from global;
+}
+
+.ingredient__drag {
+    border-radius: 10px;
+    background-color: rgb(136, 118, 236);
+}

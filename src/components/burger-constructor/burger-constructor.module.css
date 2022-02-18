@@ -3,11 +3,28 @@
     composes: mt-25 mr-4 pl-4 from global;
     box-sizing: border-box;
     max-height: calc(100vh - 188px);
-    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.constructor__initial {
+    outline: 1px dashed rgb(54, 51, 240);
 }
 
 .constructor__container {
+    display: flex;
+    flex-direction: column;
+    max-height: 80%;
+    flex-grow: 1;
+}
+
+.constructor__drop {
+    outline: 3px solid rgb(54, 51, 240);
+}
+
+.constructor__bun {
     composes: pl-8 mb-4 from global;
+    height: 80px;
 }
 
 .constructor__list {
@@ -15,8 +32,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    overflow-y: scroll;
-    height: 45%;
+    overflow-y: auto;
+    height: 65%;
 }
 
 .constructor__list::-webkit-scrollbar {
@@ -30,13 +47,6 @@
 .constructor__list::-webkit-scrollbar-thumb {
     background: #8585AD;
     box-sizing: border-box;
-}
-
-.constructor__item {
-    display: flex;
-    align-items: center;
-    column-gap: 12px;
-    composes: mb-4 from global;
 }
 
 .constructor__total {

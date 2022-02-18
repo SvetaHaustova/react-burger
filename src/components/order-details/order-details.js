@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 function OrderDetails() {
     const { orderNumber } = useSelector(store => store.order);
 
-    return(
+    return (
         <div className={styles.container}>
             <h3 className="text text_type_digits-large">{orderNumber}</h3>
             <p className="text text_type_main-medium mt-8 mb-15">Идентификатор заказа</p>
