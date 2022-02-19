@@ -16,7 +16,7 @@ function App() {
     const dispatch = useDispatch();
     const { ingredients, currentIngredient, ingredientsRequest, ingredientsFailed } = useSelector(store => store.ingredients);
     const { orderNumber } = useSelector(store => store.order);
-console.log(ingredientsRequest)
+
     React.useEffect(() => {
         dispatch(getIngredients())
     }, [dispatch])
