@@ -9,35 +9,53 @@ import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
 import styles from './app.module.css';
-import { getIngredients } from '../../services/actions/index';
+import { closeOrder } from '../../services/actions/order';
+import { getIngredients, closeIngredient } from '../../services/actions/ingredients';
 
 function App() {
     const dispatch = useDispatch();
-    const { ingredients, currentIngredient } = useSelector(store => store.ingredients);
+    const { ingredients, currentIngredient, ingredientsRequest, ingredientsFailed } = useSelector(store => store.ingredients);
     const { orderNumber } = useSelector(store => store.order);
-
+console.log(ingredientsRequest)
     React.useEffect(() => {
         dispatch(getIngredients())
     }, [dispatch])
 
+    const closeModalIngredient = () => {
+        dispatch(closeIngredient());
+    };
+
+    const closeModalOrder = () => {
+        dispatch(closeOrder());
+    };
+
     return (
         <div className={styles.page}>
             <AppHeader />
-            { ingredients.length > 0 &&
-                <main className={styles.page__burger}>
-                    <DndProvider backend={HTML5Backend}>
-                        <BurgerIngredients />
-                        <BurgerConstructor />
-                    </DndProvider>
-                </main>
+            {
+                ingredientsRequest
+                ? <div className={styles.page__initial}>
+                    <p className="text text_type_main-default">Идет загрузка ингредиентов</p>
+                </div>
+                : ingredientsFailed
+                    ? <div className={styles.page__initial}>
+                        <p className="text text_type_main-default">При загрузке ингредиентов произошла ошибка. Попробуйте в другой раз</p>
+                    </div>
+                    : ingredients.length > 0 &&
+                        <main className={styles.page__burger}>
+                            <DndProvider backend={HTML5Backend}>
+                                <BurgerIngredients />
+                                <BurgerConstructor />
+                            </DndProvider>
+                        </main>
             }
             { currentIngredient &&
-                <Modal header="Детали ингредиента">
+                <Modal header="Детали ингредиента" onClose={closeModalIngredient}>
                     <IngredientDetails />
                 </Modal>
             }
             { orderNumber &&
-                <Modal header="">
+                <Modal header="" onClose={closeModalOrder}>
                     <OrderDetails />
                 </Modal>
             }

@@ -8,7 +8,8 @@
 }
 
 .constructor__initial {
-    outline: 1px dashed rgb(54, 51, 240);
+    outline: 1px dashed rgb(136, 118, 236);
+    border-radius: 30px;
 }
 
 .constructor__container {
@@ -19,12 +20,20 @@
 }
 
 .constructor__drop {
-    outline: 3px solid rgb(54, 51, 240);
+    outline: 3px solid rgb(136, 118, 236);
+    border-radius: 30px;
 }
 
 .constructor__bun {
-    composes: pl-8 mb-4 from global;
+    composes: pl-8 mb-4 mt-4 from global;
     height: 80px;
+}
+
+.constructor__bunInitial {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .constructor__list {
@@ -34,6 +43,15 @@
     box-sizing: border-box;
     overflow-y: auto;
     height: 65%;
+}
+
+.constructor__listFailed {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+    width: 80%;
+    height: 100%;
 }
 
 .constructor__list::-webkit-scrollbar {
