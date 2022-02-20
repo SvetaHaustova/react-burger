@@ -8,3 +8,10 @@
   display: flex;
   justify-content: center;
 }
+
+.page__initial {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 88px);
+}

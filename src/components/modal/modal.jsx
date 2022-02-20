@@ -5,17 +5,16 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 
-function Modal({ children, onClose, header }) {
-    
+function Modal({ children, header, onClose }) {
     React.useEffect(() => {
-        const closeModal = (e) => {
+        const closeModalEscape = (e) => {
             if (e.key === 'Escape' || e.keyCode === 27) {
                 onClose();
             }
         }
-        document.addEventListener('keydown', closeModal);
+        document.addEventListener('keydown', closeModalEscape);
         return () => {
-            document.removeEventListener('keydown', closeModal);
+            document.removeEventListener('keydown', closeModalEscape);
         };
     }, [onClose])
 
@@ -27,9 +26,7 @@ function Modal({ children, onClose, header }) {
                         <p className="text text_type_main-large">{header}</p>
                         <CloseIcon type="primary" onClick={onClose} />
                     </div>
-                    <div>
-                        {children}
-                    </div>
+                    {children}
                 </div>
                 <ModalOverlay onClose={onClose} />
             </>
@@ -39,8 +36,8 @@ function Modal({ children, onClose, header }) {
 
 Modal.propTypes = {
     children: PropTypes.element,
-    onClose: PropTypes.func.isRequired,
     header: PropTypes.string,
+    onClose: PropTypes.func.isRequired
 };
 
 export default Modal;
