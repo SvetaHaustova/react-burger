@@ -19,8 +19,7 @@ const CardIngredients = React.forwardRef(({ ingredients, name }, ref) => {
             <ul className={styles.ingredients__list}>
                 {
                     ingredients.map((ingredient) => (
-                        <Ingredient ingredient={ingredient} key={ingredient._id} onClick={() => handleClick(ingredient)}
-                        />
+                        <Ingredient ingredient={ingredient} key={ingredient._id} onClick={() => handleClick(ingredient)} />
                     ))
                 }
             </ul>

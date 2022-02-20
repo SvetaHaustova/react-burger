@@ -11,6 +11,11 @@ import OrderDetails from '../order-details/order-details';
 import styles from './app.module.css';
 import { closeOrder } from '../../services/actions/order';
 import { getIngredients, closeIngredient } from '../../services/actions/ingredients';
+import {
+    headerModalIngredientDetails,
+    loadingTextIngredients,
+    errorTextIngredients
+} from '../../utils/constants';
 
 function App() {
     const dispatch = useDispatch();
@@ -32,25 +37,26 @@ function App() {
     return (
         <div className={styles.page}>
             <AppHeader />
-            {
-                ingredientsRequest
-                ? <div className={styles.page__initial}>
-                    <p className="text text_type_main-default">Идет загрузка ингредиентов</p>
+            {ingredientsRequest &&
+                <div className={styles.page__initial}>
+                    <p className="text text_type_main-default">{loadingTextIngredients}</p>
                 </div>
-                : ingredientsFailed
-                    ? <div className={styles.page__initial}>
-                        <p className="text text_type_main-default">При загрузке ингредиентов произошла ошибка. Попробуйте в другой раз</p>
-                    </div>
-                    : ingredients.length > 0 &&
-                        <main className={styles.page__burger}>
-                            <DndProvider backend={HTML5Backend}>
-                                <BurgerIngredients />
-                                <BurgerConstructor />
-                            </DndProvider>
-                        </main>
+            }
+            {ingredientsFailed &&
+                <div className={styles.page__initial}>
+                    <p className="text text_type_main-default">{errorTextIngredients}</p>
+                </div>
+            }
+            {!ingredientsRequest && !ingredientsFailed && ingredients.length > 0 &&
+                <main className={styles.page__burger}>
+                    <DndProvider backend={HTML5Backend}>
+                        <BurgerIngredients />
+                        <BurgerConstructor />
+                    </DndProvider>
+                </main>
             }
             { currentIngredient &&
-                <Modal header="Детали ингредиента" onClose={closeModalIngredient}>
+                <Modal header={headerModalIngredientDetails} onClose={closeModalIngredient}>
                     <IngredientDetails />
                 </Modal>
             }

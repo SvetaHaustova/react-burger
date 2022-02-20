@@ -7,6 +7,7 @@ import { useDrop } from "react-dnd";
 import { postOrder } from '../../services/actions/order';
 import { addIngredient, removeIngredient, moveIngredient } from '../../services/actions/constructor';
 import IngredientConstructor from '../ingredient-constructor/ingredient-constructor';
+import { errorTextOrder } from '../../utils/constants';
 
 function BurgerConstructor() {
     const dispatch = useDispatch();
@@ -72,7 +73,7 @@ function BurgerConstructor() {
                             price={bunIngredient.price}
                             thumbnail={bunIngredient.image}
                         />
-                        : !orderFailed && 
+                        : (!orderFailed || (!bunIngredient && otherIngredients.length > 0)) &&
                         <div className={styles.constructor__bunInitial}>
                             <p className="text text_type_main-default">Выберите булочку</p>
                         </div>
@@ -90,9 +91,9 @@ function BurgerConstructor() {
                             />
                         ))
                     }
-                    { orderFailed && 
+                    { orderFailed && ingredientsConstructor.length === 0 &&
                         <div className={styles.constructor__listFailed}>
-                            <p className="text text_type_main-default">При формировании заказа произошла ошибка. Попробуйте ещё раз</p>
+                            <p className="text text_type_main-default">{errorTextOrder}</p>
                         </div>
                     }
                 </ul>
@@ -106,7 +107,7 @@ function BurgerConstructor() {
                             price={bunIngredient.price}
                             thumbnail={bunIngredient.image}
                         />
-                        : !orderFailed &&
+                        : (!orderFailed || (!bunIngredient && otherIngredients.length > 0)) &&
                         <div className={styles.constructor__bunInitial}>
                             <p className="text text_type_main-default">Выберите булочку</p>
                         </div>

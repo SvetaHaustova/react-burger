@@ -26,9 +26,7 @@ function Modal({ children, header, onClose }) {
                         <p className="text text_type_main-large">{header}</p>
                         <CloseIcon type="primary" onClick={onClose} />
                     </div>
-                    <div>
-                        {children}
-                    </div>
+                    {children}
                 </div>
                 <ModalOverlay onClose={onClose} />
             </>
