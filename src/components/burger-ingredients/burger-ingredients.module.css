@@ -1,13 +1,12 @@
 .ingredients {
-    width: 600px;
-    composes: mr-10 from global;
-    max-height: calc(100vh - 88px);
-    box-sizing: border-box;
+    max-width: 600px;
+    composes: pr-10 pb-5 from global;
+    display: flex;
+    flex-direction: column;
 }
 
 .ingredients__container {
-    height: 76%;
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 
 .ingredients__container::-webkit-scrollbar {

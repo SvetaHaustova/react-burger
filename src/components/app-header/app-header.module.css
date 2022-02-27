@@ -1,36 +1,31 @@
 .header {
     background: #1C1C21;
-    display: flex;
-    justify-content: center;
     composes: pt-4 pb-4 from global;
-}
-
-.header__container {
-    display: flex;
-    align-items: center;
 }
 
 .header__list {
     display: flex;
+    justify-content: center;
     list-style: none;
-    margin: 0 88px 0 0;
+    margin: 0 auto;
     padding: 0;
-    height: 56px;
+    max-width: 1280px;
 }
 
 .header__item {
+    composes: pr-5 pl-5 pt-4 pb-4 from global;
+}
+
+.header__logo {
     display: flex;
     align-items: center;
-    composes: mr-6 ml-6 from global;
+    justify-content: center;
+    padding-right: 177px;
+    flex-grow: 1;
 }
 
 .header__link {
     text-decoration: none;
     color: inherit;
     display: flex;
-}
-
-.header__login {
-    composes: header__item;
-    margin: 0 0 0 289px;
 }

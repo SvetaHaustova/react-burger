@@ -1,17 +1,23 @@
 .page {
-  background: #131316;
-  max-width: 1920px;
-  height: 100vh;
+    background: #131316;
+    max-width: 1920px;
+    height: 100%;
+    margin: 0 auto;
+    font-family: 'Jet Brains Mono', sans-serif;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
 }
 
 .page__burger {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
+    max-height: calc(100vh - 88px);
 }
 
 .page__initial {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: calc(100vh - 88px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
 }

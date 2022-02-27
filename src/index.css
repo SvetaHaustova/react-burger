@@ -1,5 +1,9 @@
 @import url(./fonts/fonts.css);
 
-body {
-  font-family: 'Jet Brains Mono', sans-serif;
+html, body {
+    height: 100vh;
+}
+
+#root {
+    height: 100%;
 }

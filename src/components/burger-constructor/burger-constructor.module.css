@@ -1,8 +1,7 @@
 .constructor {
     width: 600px;
-    composes: mt-25 mr-4 pl-4 from global;
+    composes: pt-25 pb-5 from global;
     box-sizing: border-box;
-    max-height: calc(100vh - 188px);
     display: flex;
     flex-direction: column;
 }
@@ -15,7 +14,9 @@
 .constructor__container {
     display: flex;
     flex-direction: column;
-    max-height: 80%;
+    gap: 16px;
+    max-height: calc(100vh - 305px);
+    box-sizing: border-box;
     flex-grow: 1;
 }
 
@@ -25,7 +26,7 @@
 }
 
 .constructor__bun {
-    composes: pl-8 mb-4 mt-4 from global;
+    composes: pl-8 from global;
     height: 80px;
 }
 
@@ -33,16 +34,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    height: 80px;
 }
 
 .constructor__list {
     list-style: none;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     overflow-y: auto;
-    height: 65%;
+    flex-grow: 1;
 }
 
 .constructor__listFailed {
@@ -71,8 +74,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin-bottom: 52px;
-    composes: mt-10 from global;
+    composes: pt-10 from global;
 }
 
 .constructor__price svg {
@@ -82,6 +84,5 @@
 
 .constructor__price {
     display: flex;
-    justify-content: center;
     composes: mr-10 from global;
 }
