@@ -56,7 +56,7 @@ function BurgerConstructor() {
 
     const classNameContainer = `${styles.constructor__container}
                                 ${!ingredientsConstructor?.length && styles.constructor__initial}
-                                ${isDrop && styles.constructor__drop}`
+                                ${isDrop && styles.constructor__drop}`;
 
     const disabledButton = !ingredientsConstructor?.length || !bunIngredient || orderRequest;
 
