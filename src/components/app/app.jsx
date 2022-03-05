@@ -1,42 +1,42 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
 import styles from './app.module.css';
 import { closeOrder } from '../../services/actions/order';
+import { getUser } from '../../services/actions/auth';
 import { getIngredients, closeIngredient } from '../../services/actions/ingredients';
+import { headerModalIngredientDetails } from '../../utils/constants';
+import ProtectedRoute from '../../components/protected-route/protected-route';
 import {
-    headerModalIngredientDetails,
-    loadingTextIngredients,
-    errorTextIngredients
-} from '../../utils/constants';
-import {
+    HomePage,
     LoginPage,
     RegisterPage,
     ForgotPasswordPage,
     ResetPasswordPage,
-    NotFoundPage
+    ProfilePage,
+    NotFoundPage,
+    IngredientPage
 } from '../../pages';
 
 function App() {
     const history = useHistory();
     const dispatch = useDispatch();
-    const { ingredients, currentIngredient, ingredientsRequest, ingredientsFailed } = useSelector(store => store.ingredients);
+    const location = useLocation();
+    const background = location.state && location.state.background;
     const { orderNumber } = useSelector(store => store.order);
-
+    
     React.useEffect(() => {
-        dispatch(getIngredients())
+        dispatch(getIngredients());
+        dispatch(getUser());
     }, [dispatch])
 
     const closeModalIngredient = () => {
         dispatch(closeIngredient());
+        history.goBack();
     };
 
     const closeModalOrder = () => {
@@ -46,7 +46,13 @@ function App() {
     return (
         <div className={styles.page}>
             <AppHeader />
-            <Switch>
+            <Switch location={background || location}>
+                <Route path="/" exact={true}>
+                    <HomePage />
+                </Route>
+                <ProtectedRoute path="/profile">
+                    <ProfilePage />
+                </ProtectedRoute>
                 <Route path="/login">
                     <LoginPage />
                 </Route>
@@ -59,34 +65,19 @@ function App() {
                 <Route path="/reset-password">
                     <ResetPasswordPage />
                 </Route>
-                <Route exact path="/">
-                    {ingredientsRequest &&
-                        <div className={styles.page__initial}>
-                            <p className="text text_type_main-default">{loadingTextIngredients}</p>
-                        </div>
-                    }
-                    {ingredientsFailed &&
-                        <div className={styles.page__initial}>
-                            <p className="text text_type_main-default">{errorTextIngredients}</p>
-                        </div>
-                    }
-                    {!ingredientsRequest && !ingredientsFailed && ingredients.length > 0 &&
-                        <main className={styles.page__burger}>
-                            <DndProvider backend={HTML5Backend}>
-                                <BurgerIngredients />
-                                <BurgerConstructor />
-                            </DndProvider>
-                        </main>
-                    }
+                <Route path="/ingredients/:id">
+                    <IngredientPage />
                 </Route>
                 <Route path="*">
                     <NotFoundPage history={history} />
                 </Route>
             </Switch>
-            { currentIngredient &&
-                <Modal header={headerModalIngredientDetails} onClose={closeModalIngredient}>
-                    <IngredientDetails />
-                </Modal>
+            { background &&
+                <Route path="/ingredients/:id">
+                    <Modal header={headerModalIngredientDetails} onClose={closeModalIngredient}>
+                        <IngredientDetails />
+                    </Modal>
+                </Route>
             }
             { orderNumber &&
                 <Modal header="" onClose={closeModalOrder}>

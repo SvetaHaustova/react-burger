@@ -1,31 +1,40 @@
 import styles from './ingredient-details.module.css';
+import React from 'react';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 function IngredientDetails() {
-    const { image, name, calories, proteins, fat, carbohydrates } = useSelector(store => store.ingredients.currentIngredient);
+    const { ingredients } = useSelector(store => store.ingredients);
+    const { id } = useParams();
+    const currentIngredient = React.useMemo(
+            () => ingredients.find((item) => item._id === id),
+        [ingredients, id]);
 
     return(
         <div className={styles.container}>
-            <img className={styles.container__image} src={image} alt={name} />
-            <h3 className="text_type_main-medium mt-4 mb-8">{name}</h3>
-            <ul className={styles.container__list}>
-                <li className={styles.container__item}>
-                    <p className={styles.container__text}>Калории, ккал</p>
-                    <p className="text text_type_digits-default">{calories}</p>
-                </li>
-                <li className={styles.container__item}>
-                    <p className={styles.container__text}>Белки, г</p>
-                    <p className="text text_type_digits-default">{proteins}</p>
-                </li>
-                <li className={styles.container__item}>
-                    <p className={styles.container__text}>Жиры, г</p>
-                    <p className="text text_type_digits-default">{fat}</p>
-                </li>
-                <li className={styles.container__item}>
-                    <p className={styles.container__text}>Углеводы, г</p>
-                    <p className="text text_type_digits-default">{carbohydrates}</p>
-                </li>
-            </ul>
+            {currentIngredient &&
+            <>
+                <img className={styles.container__image} src={currentIngredient.image} alt={currentIngredient.name} />
+                <h3 className="text_type_main-medium mt-4 mb-8">{currentIngredient.name}</h3>
+                <ul className={styles.container__list}>
+                    <li className={styles.container__item}>
+                        <p className={styles.container__text}>Калории, ккал</p>
+                        <p className="text text_type_digits-default">{currentIngredient.calories}</p>
+                    </li>
+                    <li className={styles.container__item}>
+                        <p className={styles.container__text}>Белки, г</p>
+                        <p className="text text_type_digits-default">{currentIngredient.proteins}</p>
+                    </li>
+                    <li className={styles.container__item}>
+                        <p className={styles.container__text}>Жиры, г</p>
+                        <p className="text text_type_digits-default">{currentIngredient.fat}</p>
+                    </li>
+                    <li className={styles.container__item}>
+                        <p className={styles.container__text}>Углеводы, г</p>
+                        <p className="text text_type_digits-default">{currentIngredient.carbohydrates}</p>
+                    </li>
+                </ul>
+            </>}
         </div>
     )
 }

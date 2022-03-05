@@ -1,9 +1,15 @@
 import styles from '../page.module.css';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Form from '../../components/form/form';
+import { forgotPassword } from '../../services/actions/auth';
 
 export function ForgotPasswordPage() {
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const { loggedIn } = useSelector(store => store.auth);
+
     const inputs = [
         { name: "email", placeholder: "Укажите e-mail", type: "email"}
     ];
@@ -16,9 +22,16 @@ export function ForgotPasswordPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        //dispatch(forgot(form));
+        dispatch(forgotPassword(form.email));
+        history.push({ pathname: '/reset-password', state: { prevPathname: history.location.pathname } });
     };
 
+    if (loggedIn) {
+        return (
+            <Redirect to={"/"} />
+        );
+    }
+    
     return (
         <main className={styles.main}>
             <Form

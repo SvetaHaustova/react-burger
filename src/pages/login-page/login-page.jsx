@@ -1,9 +1,15 @@
 import styles from '../page.module.css';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import Form from '../../components/form/form';
+import { login } from '../../services/actions/auth';
 
 export function LoginPage() {
+    const dispatch = useDispatch();
+    const { state } = useLocation();
+    const { loggedIn } = useSelector(store => store.auth);
+
     const inputs = [
         { name: "email", placeholder: "E-mail", type: "email"}
     ];
@@ -16,8 +22,14 @@ export function LoginPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        //dispatch(login(form));
+        dispatch(login(form.email, form.password));
     };
+
+    if (loggedIn) {
+        return (
+            <Redirect to={state?.from || "/"} />
+        );
+    }
 
     return (
         <main className={styles.main}>

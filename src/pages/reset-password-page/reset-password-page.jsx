@@ -1,9 +1,16 @@
 import styles from '../page.module.css';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Form from '../../components/form/form';
+import { resetPassword } from '../../services/actions/auth';
 
 export function ResetPasswordPage() {
+    const { loggedIn, resetPasswordFailed } = useSelector(store => store.auth);
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const prevPathname = history.location.state?.prevPathname;
+
     const inputs = [
         { name: "token", placeholder: "Введите код из письма", type: "text"}
     ];
@@ -16,8 +23,23 @@ export function ResetPasswordPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        //dispatch(reset(form));
+        dispatch(resetPassword(form.password, form.token));
+        if (!resetPasswordFailed) {
+            history.push('/login');
+        }
     };
+
+    if (!prevPathname) {
+        return (
+            <Redirect to={'/login'} />
+        );
+    }
+
+    if (loggedIn) {
+        return (
+            <Redirect to={"/"} />
+        );
+    }
 
     return (
         <main className={styles.main}>
