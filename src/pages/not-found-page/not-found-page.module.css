@@ -1,0 +1,15 @@
+.notFoundPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.notFoundPage__number {
+    composes: text text_type_digits-large from global;
+}
+
+.notFoundPage__text {
+    composes: text text_type_main-large from global;
+}

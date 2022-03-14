@@ -1,34 +1,38 @@
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './app-header.module.css';
-
+import { Link, NavLink, useRouteMatch } from 'react-router-dom';
 
 function AppHeader() {
+    const mainPageMatch = useRouteMatch("/");
+    const feedPageMatch = useRouteMatch("/feed");
+    const profilePageMatch = useRouteMatch("/profile");
+
     return (
         <header className={styles.header}>
-            <nav>
+            <nav> 
                 <ul className={styles.header__list}>
                     <li className={styles.header__item}>
-                        <a className={styles.header__link} href="#top">
-                            <BurgerIcon type="primary" />
-                            <p className="text text_type_main-default ml-2 m-0">Конструктор</p>
-                        </a>
+                        <NavLink exact to="/" className={styles.header__link} activeClassName={styles.header__linkActive}>
+                            <BurgerIcon type={mainPageMatch.isExact ? "primary" : "secondary"} />
+                            <p className={styles.header__text}>Конструктор</p>
+                        </NavLink>
                     </li>
                     <li className={styles.header__item}>
-                        <a className={styles.header__link} href="#top">
-                            <ListIcon type="secondary" />
-                            <p className="text text_type_main-default text_color_inactive ml-2 m-0">Лента заказов</p>
-                        </a>
+                        <NavLink to="/feed" className={styles.header__link} activeClassName={styles.header__linkActive}>
+                            <ListIcon type={feedPageMatch ? "primary" : "secondary"} />
+                            <p className={styles.header__text}>Лента заказов</p>
+                        </NavLink>
                     </li>
                     <li className={styles.header__logo}>
-                        <a className={styles.header__link} href="#top">
+                        <Link to="/" className={styles.header__link}>
                             <Logo />
-                        </a>
+                        </Link>
                     </li>
                     <li className={styles.header__item}>
-                        <a className={styles.header__link} href="#top">
-                            <ProfileIcon type="secondary" />
-                            <p className="text text_type_main-default text_color_inactive ml-2 m-0">Личный кабинет</p>
-                        </a>
+                        <NavLink to="/profile" className={styles.header__link} activeClassName={styles.header__linkActive}>
+                            <ProfileIcon type={profilePageMatch ? "primary" : "secondary"} />
+                            <p className={styles.header__text}>Личный кабинет</p>
+                        </NavLink>
                     </li>
                 </ul>
             </nav>

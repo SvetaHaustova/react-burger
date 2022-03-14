@@ -8,11 +8,14 @@ import { postOrder } from '../../services/actions/order';
 import { addIngredient, removeIngredient, moveIngredient } from '../../services/actions/constructor';
 import IngredientConstructor from '../ingredient-constructor/ingredient-constructor';
 import { errorTextOrder } from '../../utils/constants';
+import { useHistory } from 'react-router-dom';
 
 function BurgerConstructor() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const { ingredientsConstructor } = useSelector(store => store.constructor);
     const { orderRequest, orderFailed } = useSelector(store => store.order);
+    const { loggedIn } = useSelector(store => store.auth);
     const bunIngredient = ingredientsConstructor?.find(ingredient => ingredient.type === 'bun');
     const otherIngredients = ingredientsConstructor?.filter(ingredient => ingredient.type !== 'bun');
 
@@ -46,9 +49,13 @@ function BurgerConstructor() {
     }
 
     const handleOrder = React.useCallback(() => {
-        const burgerIngredients = ingredientsConstructor.map(((item) => item._id));
-        dispatch(postOrder(burgerIngredients)); 
-    }, [dispatch, ingredientsConstructor]);
+        if (loggedIn) {
+            const burgerIngredients = ingredientsConstructor.map(((item) => item._id));
+            dispatch(postOrder(burgerIngredients));
+        } else {
+            history.push("/login");
+        }
+    }, [dispatch, ingredientsConstructor, loggedIn, history]);
 
     const handleMoveIngredient = React.useCallback((dragIndex, hoverIndex) => {
         dispatch(moveIngredient(dragIndex, hoverIndex));
@@ -56,7 +63,7 @@ function BurgerConstructor() {
 
     const classNameContainer = `${styles.constructor__container}
                                 ${!ingredientsConstructor?.length && styles.constructor__initial}
-                                ${isDrop && styles.constructor__drop}`
+                                ${isDrop && styles.constructor__drop}`;
 
     const disabledButton = !ingredientsConstructor?.length || !bunIngredient || orderRequest;
 

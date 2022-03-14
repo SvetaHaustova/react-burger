@@ -8,16 +8,3 @@
     flex-direction: column;
     box-sizing: border-box;
 }
-
-.page__burger {
-    display: flex;
-    justify-content: center;
-    max-height: calc(100vh - 88px);
-}
-
-.page__initial {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-}

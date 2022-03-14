@@ -26,6 +26,15 @@
 
 .header__link {
     text-decoration: none;
-    color: inherit;
     display: flex;
+    composes: text_type_main-default text_color_inactive from global;
+}
+
+.header__linkActive {
+    color: inherit;
+    composes: text_type_main-default from global;
+}
+
+.header__text {
+    composes: text ml-2 m-0 from global;
 }
