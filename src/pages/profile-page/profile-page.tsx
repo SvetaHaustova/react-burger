@@ -1,10 +1,11 @@
 import styles from '../page.module.css';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { FC } from 'react';
 import ProfileForm from '../../components/profile-form/profile-form';
 import ProfileNav from '../../components/profile-nav/profile-nav';
 import ProfileOrders from '../../components/profile-orders/profile-orders';
 
-export function ProfilePage() {
+export const ProfilePage: FC = () => {
     const { path } = useRouteMatch();
 
     return (

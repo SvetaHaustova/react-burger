@@ -1,27 +1,28 @@
 import styles from '../page.module.css';
-import React from 'react';
+import React, { FC } from 'react';
 import { Link, Redirect, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Form from '../../components/form/form';
 import { register } from '../../services/actions/auth';
+import { TLocation, TForm, TInput } from '../../utils/types';
 
-export function RegisterPage() {
+export const RegisterPage: FC = () => {
     const dispatch = useDispatch();
-    const { state } = useLocation();
-    const { loggedIn } = useSelector(store => store.auth);
+    const { state } = useLocation<TLocation>();
+    const { loggedIn } = useSelector((store: any) => store.auth);
 
-    const inputs = [
+    const inputs: TInput[] = [
         { name: "name", placeholder: "Имя", type: "text"},
         { name: "email", placeholder: "E-mail", type: "email"}
     ];
 
-    const [form, setForm] = React.useState({ email: "", password: "", name: "" });
+    const [form, setForm] = React.useState<TForm>({ email: "", password: "", name: "" });
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(register(form.email, form.password, form.name));
     };

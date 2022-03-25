@@ -1,15 +1,15 @@
 import styles from './ingredient.module.css';
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import { DragPreviewImage, useDrag } from "react-dnd";
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { ingredientPropTypes } from '../../utils/types';
+import { TIngredient,TIngredientComponent } from '../../utils/types';
 
-function Ingredient({ ingredient, onClick }) {
+const Ingredient: FC<TIngredientComponent> = ({ ingredient, onClick }) => {
     const location = useLocation();
     const { image, name, price } = ingredient;
-    const { ingredientsConstructor } = useSelector(store => store.constructor);
+    const { ingredientsConstructor } = useSelector((store: any) => store.constructor);
 
     const [{ isDrag }, dragRef, preview] = useDrag({
         type: "ingredients",
@@ -19,7 +19,7 @@ function Ingredient({ ingredient, onClick }) {
         }),
     });
 
-    const count = ingredientsConstructor?.filter((item) => item._id === ingredient._id).length;
+    const count = ingredientsConstructor?.filter((item: TIngredient) => item._id === ingredient._id).length;
 
     return (
         <Link to={{ pathname: `/ingredients/${ingredient._id}`, state: { background: location } }} className={styles.ingredient__link}>
@@ -36,10 +36,5 @@ function Ingredient({ ingredient, onClick }) {
         </Link>
     )
 }
-
-Ingredient.propTypes = {
-    ingredient: ingredientPropTypes.isRequired,
-    onClick: PropTypes.func.isRequired,
-};
 
 export default Ingredient;

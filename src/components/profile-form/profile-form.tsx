@@ -1,15 +1,16 @@
 import styles from './profile-form.module.css';
-import React from 'react';
-import Form from '../../components/form/form';
+import React, { FC } from 'react';
+import Form from '../form/form';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUser } from '../../services/actions/auth';
+import { TForm, TInput } from '../../utils/types';
 
-function ProfileForm() {
+const ProfileForm: FC = () => {
     const dispatch = useDispatch();
-    const { user, loggedIn } = useSelector(store => store.auth);
-    const [form, setForm] = React.useState({ ...user, password: ""});
-    const [isSameUserInfo, setIsSameUserInfo] = React.useState(false);
+    const { user, loggedIn } = useSelector((store: any) => store.auth);
+    const [form, setForm] = React.useState<TForm>({ ...user, password: ""});
+    const [isSameUserInfo, setIsSameUserInfo] = React.useState<boolean>(false);
 
     React.useEffect(() => {
         if (loggedIn) {
@@ -17,17 +18,17 @@ function ProfileForm() {
         }
     }, [form.email, form.name, loggedIn, user.email, user.name])
 
-    const inputs = [
+    const inputs: TInput[] = [
         { name: "name", placeholder: "Имя", type: "text"},
         { name: "email", placeholder: "Логин", type: "email"},
         { name: "password", placeholder: "Пароль", type: "password"}
     ];
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(updateUser(form.email, form.name));
     };
@@ -46,7 +47,7 @@ function ProfileForm() {
                 reverseInput={false}
                 onChange={handleChange}
                 onSubmit={handleSubmit}
-                icon="EditIcon"
+                icon={"EditIcon"}
                 disabled={isSameUserInfo}
             />
             <Button type="secondary" size="large" onClick={() => handleReset()} disabled={isSameUserInfo}>Отмена</Button>

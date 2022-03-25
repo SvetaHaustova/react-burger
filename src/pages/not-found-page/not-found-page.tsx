@@ -1,7 +1,8 @@
 import styles from './not-found-page.module.css';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { FC } from 'react';
 
-export function NotFoundPage({ history }) {
+export const NotFoundPage: FC<any> = ({ history }) => {
     
     function handleGoBack() {
         history.goBack();

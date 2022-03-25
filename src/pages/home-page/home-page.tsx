@@ -1,7 +1,8 @@
 import styles from '../page.module.css';
 import { useSelector } from 'react-redux';
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { FC } from 'react';
 import BurgerConstructor from '../../components/burger-constructor/burger-constructor';
 import BurgerIngredients from '../../components/burger-ingredients/burger-ingredients';
 import {
@@ -9,8 +10,8 @@ import {
     errorTextIngredients
 } from '../../utils/constants';
 
-export function HomePage() {
-    const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(store => store.ingredients);
+export const HomePage: FC = () => {
+    const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector((store: any) => store.ingredients);
 
     return (
         <>
