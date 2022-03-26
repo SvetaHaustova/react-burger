@@ -1,6 +1,6 @@
 import { API_URL } from './constants';
 import { getCookie } from './utils';
-import { TIngredient } from './types';
+import { TIngredientId } from './types';
 
 function handleCheckResponse(res: Response) {
     if (res.ok) {
@@ -20,7 +20,7 @@ export const getIngredientsRequest = () => {
     .then((res) => handleCheckResponse(res));
 }
 
-export const postOrderRequest = (data: Array<TIngredient>) => {
+export const postOrderRequest = (data: Array<TIngredientId>) => {
     return fetch(`${API_URL}/orders`, {
         method: "POST",
         headers: {

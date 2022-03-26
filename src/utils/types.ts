@@ -17,6 +17,8 @@ export type TIngredient = {
     uuid: string;
 };
 
+export type TIngredientId = Pick<TIngredient, '_id'>;
+
 export type TIngredientComponent = {
     ingredient: TIngredient;
     onClick: () => void;
