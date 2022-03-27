@@ -1,26 +1,27 @@
 import styles from '../page.module.css';
-import React from 'react';
+import React, { FC } from 'react';
 import { Link, useHistory, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Form from '../../components/form/form';
 import { forgotPassword } from '../../services/actions/auth';
+import { TForm, TInput } from '../../utils/types';
 
-export function ForgotPasswordPage() {
+export const ForgotPasswordPage: FC = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { loggedIn } = useSelector(store => store.auth);
+    const { loggedIn } = useSelector((store: any) => store.auth);
 
-    const inputs = [
+    const inputs: TInput[] = [
         { name: "email", placeholder: "Укажите e-mail", type: "email"}
     ];
 
-    const [form, setForm] = React.useState({ email: ""});
+    const [form, setForm] = React.useState<TForm>({ email: ""});
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(forgotPassword(form.email));
         history.push({ pathname: '/reset-password', state: { prevPathname: history.location.pathname } });

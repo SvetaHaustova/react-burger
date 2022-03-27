@@ -1,7 +1,8 @@
 import { API_URL } from './constants';
 import { getCookie } from './utils';
+import { TIngredientId } from './types';
 
-function handleCheckResponse(res) {
+function handleCheckResponse(res: Response) {
     if (res.ok) {
         return res.json();
     } else {
@@ -19,7 +20,7 @@ export const getIngredientsRequest = () => {
     .then((res) => handleCheckResponse(res));
 }
 
-export const postOrderRequest = (data) => {
+export const postOrderRequest = (data: Array<TIngredientId>) => {
     return fetch(`${API_URL}/orders`, {
         method: "POST",
         headers: {
@@ -30,7 +31,7 @@ export const postOrderRequest = (data) => {
     .then((res) => handleCheckResponse(res));
 }
 
-export const registerRequest = (email, password, name) => {
+export const registerRequest = (email: string, password: string, name: string) => {
     return fetch(`${API_URL}/auth/register`, {
         method: "POST",
         headers: {
@@ -41,7 +42,7 @@ export const registerRequest = (email, password, name) => {
     .then((res) => handleCheckResponse(res));
 }
 
-export const loginRequest = (email, password) => {
+export const loginRequest = (email: string, password: string) => {
     return fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: {
@@ -79,25 +80,25 @@ export const getUserRequest = () => {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            Authorization: getCookie('token'),
+            Authorization: `${getCookie('token')}`,
         },
     })
     .then((res) => handleCheckResponse(res));
 }
 
-export const updateUserRequest = (email, name) => {
+export const updateUserRequest = (email: string, name: string) => {
     return fetch(`${API_URL}/auth/user`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
-            Authorization: getCookie('token'),
+            Authorization: `${getCookie('token')}`,
         },
         body: JSON.stringify({ email, name }),
     })
     .then((res) => handleCheckResponse(res));
 }
 
-export const forgotPasswordRequest = (email) => {
+export const forgotPasswordRequest = (email: string) => {
     return fetch(`${API_URL}/password-reset`, {
         method: "POST",
         headers: {
@@ -108,7 +109,7 @@ export const forgotPasswordRequest = (email) => {
     .then((res) => handleCheckResponse(res));
 }
 
-export const resetPasswordRequest = (password, token) => {
+export const resetPasswordRequest = (password: string, token: string) => {
     return fetch(`${API_URL}/password-reset/reset`, {
         method: "POST",
         headers: {

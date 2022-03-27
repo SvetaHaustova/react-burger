@@ -1,9 +1,10 @@
 import styles from './order-details.module.css';
 import doneImg from '../../images/done.svg';
 import { useSelector } from 'react-redux';
+import { FC } from 'react';
 
-function OrderDetails() {
-    const { orderNumber } = useSelector(store => store.order);
+const OrderDetails: FC = () => {
+    const { orderNumber } = useSelector((store: any) => store.order);
 
     return (
         <div className={styles.container}>

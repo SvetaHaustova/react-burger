@@ -1,13 +1,14 @@
 import styles from './profile-nav.module.css';
+import { FC } from 'react';
 import { NavLink, useRouteMatch, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../services/actions/auth';
 
-function ProfileNav() {
+const ProfileNav: FC = () => {
     const dispatch = useDispatch();
     const { url } = useRouteMatch();
     const profilePageMatch = useRouteMatch("/profile");
-    const { loggedIn } = useSelector(store => store.auth);
+    const { loggedIn } = useSelector((store: any) => store.auth);
 
     const handleLogout = () => {
         dispatch(logout());
@@ -35,7 +36,7 @@ function ProfileNav() {
                     <button type="button" className={styles.profile__button} onClick={handleLogout}>Выход</button>
                 </li>
             </ul>
-            {profilePageMatch.isExact && <p className={styles.profile__text}>
+            {profilePageMatch?.isExact && <p className={styles.profile__text}>
                 В этом разделе вы можете изменить свои персональные данные
             </p>}
         </nav>
