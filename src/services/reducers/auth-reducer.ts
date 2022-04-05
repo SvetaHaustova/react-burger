@@ -1,4 +1,6 @@
+import { TUser } from '../../utils/types';
 import {
+    TAuthActions,
     REGISTER_REQUEST,
     REGISTER_SUCCESS,
     REGISTER_FAILED,
@@ -25,8 +27,29 @@ import {
     RESET_PASSWORD_FAILED
 } from '../actions/auth';
 
-const authInitialState = {
-    user: null,
+export type TAuthState = {
+    user: TUser;
+    registerRequest: boolean;
+    registerFailed: boolean;
+    loggedIn: boolean;
+    loginRequest: boolean;
+    loginFailed: boolean;
+    updateTokenRequest: boolean;
+    updateTokenFailed: boolean;
+    logoutRequest: boolean;
+    logoutFailed: boolean;
+    userRequest: boolean;
+    userFailed: boolean;
+    updateUserRequest: boolean;
+    updateUserFailed: boolean;
+    forgotPasswordRequest: boolean;
+    forgotPasswordFailed: boolean;
+    resetPasswordRequest: boolean;
+    resetPasswordFailed: boolean;
+};
+
+const authInitialState: TAuthState = {
+    user: { name: "", email: "" },
     registerRequest: false,
     registerFailed: false,
     loggedIn: false,
@@ -46,7 +69,7 @@ const authInitialState = {
     resetPasswordFailed: false,
 };
 
-export const authReducer = (state = authInitialState, action) => {
+export const authReducer = (state = authInitialState, action: TAuthActions): TAuthState => {
     switch (action.type) {
         case REGISTER_REQUEST: {
             return {
@@ -124,7 +147,7 @@ export const authReducer = (state = authInitialState, action) => {
             return {
                 ...state,
                 loggedIn: false,
-                user: null,
+                user: { name: "", email: "" },
             };
         }
         case LOGOUT_FAILED: {
@@ -187,8 +210,8 @@ export const authReducer = (state = authInitialState, action) => {
         case FORGOT_PASSWORD_SUCCESS: {
             return {
                 ...state,
-                user: action.user,
                 forgotPasswordRequest: false,
+                forgotPasswordFailed: false,
             };
         }
         case FORGOT_PASSWORD_FAILED: {
@@ -208,8 +231,8 @@ export const authReducer = (state = authInitialState, action) => {
         case RESET_PASSWORD_SUCCESS: {
             return {
                 ...state,
-                user: action.user,
                 resetPasswordRequest: false,
+                resetPasswordFailed: false,
             };
         }
         case RESET_PASSWORD_FAILED: {

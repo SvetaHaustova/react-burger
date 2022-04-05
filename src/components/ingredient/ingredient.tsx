@@ -2,14 +2,14 @@ import styles from './ingredient.module.css';
 import { FC } from 'react';
 import { DragPreviewImage, useDrag } from "react-dnd";
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { TIngredient,TIngredientComponent } from '../../utils/types';
+import { useSelector } from '../../services/hooks';
 
 const Ingredient: FC<TIngredientComponent> = ({ ingredient, onClick }) => {
     const location = useLocation();
     const { image, name, price } = ingredient;
-    const { ingredientsConstructor } = useSelector((store: any) => store.constructor);
+    const { ingredientsConstructor } = useSelector((store) => store.constructor);
 
     const [{ isDrag }, dragRef, preview] = useDrag({
         type: "ingredients",

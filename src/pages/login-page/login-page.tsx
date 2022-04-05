@@ -1,15 +1,15 @@
 import styles from '../page.module.css';
 import React, { FC } from 'react';
 import { Link, Redirect, useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import Form from '../../components/form/form';
 import { login } from '../../services/actions/auth';
 import { TLocation, TForm, TInput } from '../../utils/types';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 export const LoginPage: FC = () => {
     const dispatch = useDispatch();
     const { state } = useLocation<TLocation>();
-    const { loggedIn } = useSelector((store: any) => store.auth);
+    const { loggedIn } = useSelector((store) => store.auth);
 
     const inputs: TInput[] = [
         { name: "email", placeholder: "E-mail", type: "email"}

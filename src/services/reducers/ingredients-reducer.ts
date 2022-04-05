@@ -1,4 +1,6 @@
+import { TIngredient } from '../../utils/types';
 import {
+    TIngredientsActions,
     GET_INGREDIENTS_REQUEST,
     GET_INGREDIENTS_SUCCESS,
     GET_INGREDIENTS_FAILED,
@@ -6,14 +8,21 @@ import {
     CLOSE_INGREDIENT
 } from '../actions/ingredients';
 
-const ingredientsInitialState = {
+export type TIngredientsState = {
+    ingredients: ReadonlyArray<TIngredient>;
+    ingredientsRequest: boolean;
+    ingredientsFailed: boolean;
+    currentIngredient: TIngredient | null;
+};
+
+const ingredientsInitialState: TIngredientsState = {
     ingredients: [],
     ingredientsRequest: false,
     ingredientsFailed: false,
     currentIngredient: null
 };
 
-export const ingredientsReducer = (state = ingredientsInitialState, action) => {
+export const ingredientsReducer = (state = ingredientsInitialState, action: TIngredientsActions): TIngredientsState => {
     switch (action.type) {
         case GET_INGREDIENTS_REQUEST: {
             return {

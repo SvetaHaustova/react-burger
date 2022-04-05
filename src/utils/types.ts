@@ -79,3 +79,12 @@ export type TModalComponent = {
     onClose: () => void;
     header: string;
 }
+
+export type TOrderNumber = {
+    orderNumber: number;
+}
+
+export type TUser = {
+    name: string;
+    email: string;
+}

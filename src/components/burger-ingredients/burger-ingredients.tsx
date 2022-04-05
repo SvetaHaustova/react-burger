@@ -1,9 +1,9 @@
 import styles from './burger-ingredients.module.css';
 import React, { FC } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
 import CardIngredients from '../card-ingredients/card-ingredients';
 import { TIngredient } from '../../utils/types';
+import { useSelector } from '../../services/hooks';
 
 const BurgerIngredients: FC = () => {
     const [currentTab, setCurrentTab] = React.useState<string>("buns");
@@ -11,7 +11,7 @@ const BurgerIngredients: FC = () => {
     const bunRef = React.useRef<HTMLDivElement>(null);
     const sauceRef = React.useRef<HTMLDivElement>(null);
     const mainRef = React.useRef<HTMLDivElement>(null);
-    const { ingredients } = useSelector((store: any) => store.ingredients);
+    const { ingredients } = useSelector((store) => store.ingredients);
     const bun = ingredients.filter((ingredient: TIngredient) => ingredient.type === "bun");
     const sauce = ingredients.filter((ingredient: TIngredient) => ingredient.type === "sauce");
     const main = ingredients.filter((ingredient: TIngredient) => ingredient.type === "main");

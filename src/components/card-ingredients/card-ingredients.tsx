@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './card-ingredients.module.css';
-import { useDispatch } from 'react-redux';
 import { openIngredient } from '../../services/actions/ingredients';
 import Ingredient from '../ingredient/ingredient';
 import { TIngredient, TCardIngredientsComponent } from '../../utils/types';
+import { useDispatch } from '../../services/hooks';
 
 const CardIngredients = React.forwardRef<HTMLDivElement, TCardIngredientsComponent>(({ ingredients, name }, ref) => {
     const dispatch = useDispatch();

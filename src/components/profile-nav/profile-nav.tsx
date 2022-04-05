@@ -1,14 +1,14 @@
 import styles from './profile-nav.module.css';
 import { FC } from 'react';
 import { NavLink, useRouteMatch, Redirect } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../services/actions/auth';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 const ProfileNav: FC = () => {
     const dispatch = useDispatch();
     const { url } = useRouteMatch();
     const profilePageMatch = useRouteMatch("/profile");
-    const { loggedIn } = useSelector((store: any) => store.auth);
+    const { loggedIn } = useSelector((store) => store.auth);
 
     const handleLogout = () => {
         dispatch(logout());

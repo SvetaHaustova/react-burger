@@ -1,11 +1,11 @@
 import styles from './ingredient-details.module.css';
 import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { TIngredient, TParams } from '../../utils/types';
+import { useSelector } from '../../services/hooks';
 
 const IngredientDetails: FC = () => {
-    const { ingredients } = useSelector((store: any) => store.ingredients);
+    const { ingredients } = useSelector((store) => store.ingredients);
     const { id } = useParams<TParams>();
     const currentIngredient = React.useMemo(
             () => ingredients.find((item: TIngredient) => item._id === id),

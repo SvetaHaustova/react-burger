@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { TLocation } from '../../utils/types';
-import { useSelector, useDispatch } from 'react-redux';
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
 import Modal from '../modal/modal';
@@ -12,6 +11,7 @@ import { getUser } from '../../services/actions/auth';
 import { getIngredients, closeIngredient } from '../../services/actions/ingredients';
 import { headerModalIngredientDetails } from '../../utils/constants';
 import ProtectedRoute from '../protected-route/protected-route';
+import { useDispatch, useSelector } from '../../services/hooks';
 import {
     HomePage,
     LoginPage,
@@ -28,7 +28,7 @@ const App: FC = () => {
     const dispatch = useDispatch();
     const location = useLocation<TLocation>();
     const background = location.state && location.state.background;
-    const { orderNumber } = useSelector((store: any) => store.order);
+    const { orderNumber } = useSelector((store) => store.order);
     
     React.useEffect(() => {
         dispatch(getIngredients());

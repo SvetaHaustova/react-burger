@@ -1,15 +1,21 @@
+import { TIngredient } from '../../utils/types';
 import {
+    TConstructorActions,
     ADD_INGREDIENT_CONSTRUCTOR,
     REMOVE_INGREDIENT_CONSTRUCTOR,
     RESET_CONSTRUCTOR,
     MOVE_INGREDIENT_CONSTRUCTOR
 } from '../actions/constructor';
 
-const constructorInitialState = {
+export type TConstructorState = {
+    ingredientsConstructor: Array<TIngredient>;
+};
+
+const constructorInitialState: TConstructorState = {
     ingredientsConstructor: []
 };
 
-export const constructorReducer = (state = constructorInitialState, action) => {
+export const constructorReducer = (state = constructorInitialState, action: TConstructorActions): TConstructorState => {
     switch (action.type) {
         case ADD_INGREDIENT_CONSTRUCTOR: {
             return {
@@ -27,7 +33,7 @@ export const constructorReducer = (state = constructorInitialState, action) => {
         case REMOVE_INGREDIENT_CONSTRUCTOR: {
             return {
                 ...state,
-                ingredientsConstructor: [...state.ingredientsConstructor.filter((ingredient) => ingredient.uuid !== action.uuid)]
+                ingredientsConstructor: [...state.ingredientsConstructor.filter((ingredient: TIngredient) => ingredient.uuid !== action.uuid)]
             };
         }
         case RESET_CONSTRUCTOR: {
@@ -37,8 +43,8 @@ export const constructorReducer = (state = constructorInitialState, action) => {
             };
         }
         case MOVE_INGREDIENT_CONSTRUCTOR: {
-            const otherIngredients = state.ingredientsConstructor.filter(ingredient => ingredient.type !== 'bun');
-            const bun = state.ingredientsConstructor.filter(ingredient => ingredient.type === 'bun');
+            const otherIngredients = state.ingredientsConstructor.filter((ingredient: TIngredient) => ingredient.type !== 'bun');
+            const bun = state.ingredientsConstructor.filter((ingredient: TIngredient) => ingredient.type === 'bun');
             const otherIngredientsNew = [...otherIngredients];
             const drag = otherIngredientsNew.splice(action.dragIndex, 1);
             otherIngredientsNew.splice(action.hoverIndex, 0, drag[0]);
