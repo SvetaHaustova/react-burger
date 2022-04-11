@@ -14,7 +14,7 @@ const FeedOrders: FC = () => {
     const dispatch = useDispatch();
     const { orders, userOrders } = useSelector((store) => store.feed);
     const isUserOrders = useRouteMatch({ path: "/profile/orders/" });
-    const currentOrders = isUserOrders ? [...userOrders].reverse() : orders;
+    const currentOrders = isUserOrders ? userOrders : orders;
 
     React.useEffect(
         () => {
