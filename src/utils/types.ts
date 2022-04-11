@@ -1,5 +1,6 @@
 import { TICons } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { Location } from "history";
+import { match } from 'react-router-dom';
 
 export type TIngredient = {
     _id: string;
@@ -87,4 +88,37 @@ export type TOrderNumber = {
 export type TUser = {
     name: string;
     email: string;
+}
+
+export type TOrder = {
+    ingredients: Array<TIngredientId | string>;
+    _id: string;
+    name: string;
+    status: string;
+    number: number;
+    createdAt: string;
+    updatedAt: string;
+  };
+
+export type TOrders = {
+    orders: Array<TOrder>;
+    total: number;
+    totalToday: number;
+}
+
+export type TOrderIngredientComponent = {
+    ingredient: TIngredient;
+    name: string;
+    image: string;
+    currentOrder: TOrder;
+}
+
+export type TOrderItemComponent = {
+    number: number;
+    status?: string;
+    createdAt: string;
+    name: string;
+    ingredientsId: Array<string | TIngredientId>;
+    isUserOrders: match<{}> | null;
+    id: string;
 }

@@ -271,7 +271,7 @@ export const logout: AppThunk = () => (dispatch: AppDispatch) => {
     });
 };
 
-export const getUser: AppThunk = () => (dispatch: AppDispatch) => {
+export const getUser: AppThunk = () => (dispatch) => {
     dispatch(userRequestAction());
     getUserRequest()
     .then((res) => {
@@ -282,15 +282,15 @@ export const getUser: AppThunk = () => (dispatch: AppDispatch) => {
     .catch((err) => {
         console.log(err);
         if (localStorage.getItem('refreshToken')) {
-            updateTokenRequest();;
-            getUserRequest();
+            dispatch(updateToken());
+            dispatch(getUser());
         } else {
             dispatch(userFailedAction());
         }
     });
 };
 
-export const updateUser: AppThunk = (email: string, name: string) => (dispatch: AppDispatch) => {
+export const updateUser: AppThunk = (email: string, name: string) => (dispatch) => {
     dispatch(updateUserRequestAction());
     updateUserRequest(email, name)
     .then((res) => {
@@ -301,8 +301,8 @@ export const updateUser: AppThunk = (email: string, name: string) => (dispatch: 
     .catch((err) => {
         console.log(err);
         if (localStorage.getItem('refreshToken')) {
-            updateTokenRequest();
-            updateUserRequest(email, name);
+            dispatch(updateToken());
+            dispatch(updateUser(email, name));
         } else {
             dispatch(updateUserFailedAction());
         }

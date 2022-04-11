@@ -1,0 +1,65 @@
+.order {
+    display: flex;
+    flex-direction: column;
+    composes: pl-10 pr-10 pb-10 pt-4 from global;
+    max-width: 640px;
+}
+
+.order__number {
+    composes: text text_type_digits-default from global;
+    margin-right: 9px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.order__text {
+    composes: text text_type_main-medium pt-10 pb-3 from global;
+}
+
+.order__status {
+    composes: text text_type_main-default from global;
+    color: #00CCCC;
+}
+
+.order__title {
+    composes: text text_type_main-medium pt-15 pb-6 from global;
+}
+
+.order__list {
+    list-style: none;
+    margin: 0;
+    padding: 0 24px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+    max-height: calc(100vh - 650px);
+}
+
+.order__list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.order__list::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+
+.order__list::-webkit-scrollbar-thumb {
+    background: #8585AD;
+    box-sizing: border-box;
+}
+
+.order__price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    composes: mt-10 from global;
+}
+
+.order__date {
+    composes: text text_type_main-default text_color_inactive from global;
+}
+
+.order__total {
+    display: flex;
+}

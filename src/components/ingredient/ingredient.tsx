@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { DragPreviewImage, useDrag } from "react-dnd";
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation } from 'react-router-dom';
-import { TIngredient,TIngredientComponent } from '../../utils/types';
+import { TIngredientComponent } from '../../utils/types';
 import { useSelector } from '../../services/hooks';
 
 const Ingredient: FC<TIngredientComponent> = ({ ingredient, onClick }) => {
@@ -19,7 +19,7 @@ const Ingredient: FC<TIngredientComponent> = ({ ingredient, onClick }) => {
         }),
     });
 
-    const count = ingredientsConstructor?.filter((item: TIngredient) => item._id === ingredient._id).length;
+    const count = ingredientsConstructor?.filter((item) => item._id === ingredient._id).length;
 
     return (
         <Link to={{ pathname: `/ingredients/${ingredient._id}`, state: { background: location } }} className={styles.ingredient__link}>

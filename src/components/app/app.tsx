@@ -5,6 +5,7 @@ import AppHeader from '../app-header/app-header';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
+import Order from '../order/order';
 import styles from './app.module.css';
 import { closeOrder } from '../../services/actions/order';
 import { getUser } from '../../services/actions/auth';
@@ -20,7 +21,9 @@ import {
     ResetPasswordPage,
     ProfilePage,
     NotFoundPage,
-    IngredientPage
+    IngredientPage,
+    FeedPage,
+    OrderPage
 } from '../../pages';
 
 const App: FC = () => {
@@ -66,6 +69,12 @@ const App: FC = () => {
                 <Route path="/reset-password">
                     <ResetPasswordPage />
                 </Route>
+                <Route path="/feed" exact={true}>
+                    <FeedPage />
+                </Route>
+                <Route path="/feed/:id" exact={true}>
+                    <OrderPage />
+                </Route>
                 <Route path="/ingredients/:id">
                     <IngredientPage />
                 </Route>
@@ -77,6 +86,13 @@ const App: FC = () => {
                 <Route path="/ingredients/:id">
                     <Modal header={headerModalIngredientDetails} onClose={closeModalIngredient}>
                         <IngredientDetails />
+                    </Modal>
+                </Route>
+            }
+            { background &&
+                <Route path="/feed/:id">
+                    <Modal header="Информация о заказе" onClose={closeModalIngredient}>
+                        <Order />
                     </Modal>
                 </Route>
             }

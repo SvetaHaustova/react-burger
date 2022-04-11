@@ -17,7 +17,7 @@ const CardIngredients = React.forwardRef<HTMLDivElement, TCardIngredientsCompone
             <h2 className="text text_type_main-medium pt-10 pb-6">{name}</h2>
             <ul className={styles.ingredients__list}>
                 {
-                    ingredients.map((ingredient: TIngredient) => (
+                    ingredients.map((ingredient) => (
                         <Ingredient ingredient={ingredient} key={ingredient._id} onClick={() => handleClick(ingredient)} />
                     ))
                 }

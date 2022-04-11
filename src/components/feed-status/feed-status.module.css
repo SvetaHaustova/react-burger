@@ -1,0 +1,35 @@
+.feed__wrapper {
+    display: flex;
+    column-gap: 36px;
+}
+
+.feed__list {
+    list-style: none;
+    margin: 0;
+    padding: 24px 0 0;
+    min-width: 272px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(5, auto);
+}
+
+.feed__itemDone {
+    composes: text text_type_digits-default pb-2 pr-2 from global;
+    color: #00CCCC;
+}
+
+.feed__itemInProgress {
+    composes: text text_type_digits-default pb-2 pr-2 from global;
+}
+
+.feed__total {
+    padding-top: 50px;
+}
+
+.feed__text {
+    composes: text text_type_main-medium from global;
+}
+
+.feed__number {
+    composes: text text_type_digits-large from global;
+}

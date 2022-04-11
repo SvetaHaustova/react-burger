@@ -17,13 +17,13 @@ const BurgerConstructor: FC = () => {
     const { ingredientsConstructor } = useSelector((store) => store.constructor);
     const { orderRequest, orderFailed } = useSelector((store) => store.order);
     const { loggedIn } = useSelector((store) => store.auth);
-    const bunIngredient = ingredientsConstructor?.find((ingredient: TIngredient) => ingredient.type === 'bun');
-    const otherIngredients = ingredientsConstructor?.filter((ingredient: TIngredient) => ingredient.type !== 'bun');
+    const bunIngredient = ingredientsConstructor?.find((ingredient) => ingredient.type === 'bun');
+    const otherIngredients = ingredientsConstructor?.filter((ingredient) => ingredient.type !== 'bun');
 
     const totalPrice = React.useMemo(
         () =>
             ingredientsConstructor
-            ? ingredientsConstructor.reduce((sum: number, current: TIngredient) => sum + current.price, 0)
+            ? ingredientsConstructor.reduce((sum, current) => sum + current.price, 0)
             : 0,
         [ingredientsConstructor]
     );
@@ -51,7 +51,7 @@ const BurgerConstructor: FC = () => {
 
     const handleOrder = React.useCallback(() => {
         if (loggedIn) {
-            const burgerIngredients = ingredientsConstructor.map(((item: TIngredient) => item._id));
+            const burgerIngredients = ingredientsConstructor.map(((item) => item._id));
             dispatch(postOrder(burgerIngredients));
         } else {
             history.push("/login");

@@ -12,6 +12,15 @@
     max-height: calc(100vh - 88px);
 }
 
+.main__feed {
+    composes: pt-10 pb-5 from global;
+}
+
+.main__feedWrapper {
+    display: flex;
+    composes: pt-5 from global;
+}
+
 .main__initial {
     display: flex;
     justify-content: center;

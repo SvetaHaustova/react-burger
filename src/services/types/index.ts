@@ -5,8 +5,9 @@ import { TOrderActions } from '../actions/order';
 import { TIngredientsActions } from '../actions/ingredients';
 import { TAuthActions } from '../actions/auth';
 import { TConstructorActions } from '../actions/constructor';
+import { TFeedOrdersActions } from '../actions/feed';
 
-type TApplicationActions = TOrderActions | TIngredientsActions | TAuthActions | TConstructorActions;
+type TApplicationActions = TOrderActions | TIngredientsActions | TAuthActions | TConstructorActions | TFeedOrdersActions;
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = Dispatch<TApplicationActions>;

@@ -1,3 +1,6 @@
+import { formatRelative } from 'date-fns';
+import { ru } from 'date-fns/locale';
+
 export function setCookie(name: string, value: string, props: { [key: string]: any } & { expires?: number | Date | string } = {}) {
     props = props || {};
     let exp = props.expires;
@@ -31,3 +34,19 @@ export function getCookie(name: string) {
 export function deleteCookie(name: string) {
     setCookie(name, "", { expires: -1 });
 }
+
+export const formatStatus = (status: string): string => {
+    if (status === "done") {
+      return "Выполнен";
+    } else if (status === "pending") {
+      return "Готовится";
+    } else {
+      return "Создан";
+    }
+};
+
+export const formatOrderDate = (date: string) => {
+  return formatRelative(new Date(date), new Date(), {
+    locale: ru,
+  });
+};
