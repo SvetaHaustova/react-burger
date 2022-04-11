@@ -13,7 +13,7 @@
 }
 
 .main__feed {
-    composes: pt-10 pb-5 from global;
+    composes: pt-10 from global;
 }
 
 .main__feedWrapper {
@@ -35,8 +35,9 @@
 .main__container {
     max-width: 1280px;
     display: flex;
-    padding-top: 120px;
+    padding-top: 100px;
     margin: 0 auto;
+    padding-bottom: 20px;
 }
 
 .main__title {

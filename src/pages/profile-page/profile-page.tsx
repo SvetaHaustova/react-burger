@@ -3,7 +3,7 @@ import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import { FC } from 'react';
 import ProfileForm from '../../components/profile-form/profile-form';
 import ProfileNav from '../../components/profile-nav/profile-nav';
-import ProfileOrders from '../../components/profile-orders/profile-orders';
+import FeedOrders from '../../components/feed-orders/feed-orders';
 
 export const ProfilePage: FC = () => {
     const { path } = useRouteMatch();
@@ -16,8 +16,8 @@ export const ProfilePage: FC = () => {
                     <Route path={`${path}`} exact={true}>
                         <ProfileForm />
                     </Route>
-                    <Route path={`${path}/orders`} >
-                        <ProfileOrders />
+                    <Route path={`${path}/orders`}>
+                        <FeedOrders />
                     </Route>
                 </Switch>
             </div>

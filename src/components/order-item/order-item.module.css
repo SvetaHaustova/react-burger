@@ -5,6 +5,11 @@
     border-radius: 40px;
     composes: p-6 from global;
 }
+
+.order__itemWidth {
+    width: 844px;
+}
+
 .order__data {
     display: flex;
     justify-content: space-between;
@@ -12,7 +17,7 @@
 }
 
 .order__text {
-    composes: text text_type_main-medium pt-6 pb-6 from global;
+    composes: text text_type_main-medium pt-6 pb-4 from global;
 }
 
 .order__number {
@@ -69,4 +74,9 @@
 .order__link {
     text-decoration: none;
     color: inherit;
+}
+
+.order__status {
+    composes: text text_type_main-default pb-6 from global;
+    color: #00CCCC;
 }

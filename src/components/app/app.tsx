@@ -54,8 +54,8 @@ const App: FC = () => {
                 <Route path="/" exact={true}>
                     <HomePage />
                 </Route>
-                <ProtectedRoute path="/profile">
-                    <ProfilePage />
+                <ProtectedRoute path="/profile/orders/:id" >
+                    <OrderPage />
                 </ProtectedRoute>
                 <Route path="/login">
                     <LoginPage />
@@ -78,6 +78,9 @@ const App: FC = () => {
                 <Route path="/ingredients/:id">
                     <IngredientPage />
                 </Route>
+                <ProtectedRoute path="/profile" >
+                    <ProfilePage />
+                </ProtectedRoute>
                 <Route path="*">
                     <NotFoundPage history={history} />
                 </Route>
@@ -95,6 +98,13 @@ const App: FC = () => {
                         <Order />
                     </Modal>
                 </Route>
+            }
+            { background &&
+                <ProtectedRoute path="/profile/orders/:id">
+                    <Modal header="Информация о заказе" onClose={closeModalIngredient}>
+                        <Order />
+                    </Modal>
+                </ProtectedRoute>
             }
             { orderNumber &&
                 <Modal header="" onClose={closeModalOrder}>

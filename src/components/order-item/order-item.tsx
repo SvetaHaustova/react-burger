@@ -2,13 +2,12 @@ import React, { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './order-item.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-//import img from '../../images/ingredient_preview.svg';
 import { MAX_SHOW_INGREDIENT } from '../../utils/constants';
 import { TOrderItemComponent } from '../../utils/types';
-import { useDispatch, useSelector } from '../../services/hooks';
-import { formatOrderDate } from '../../utils/utils';
+import { useSelector } from '../../services/hooks';
+import { formatOrderDate, formatStatus } from '../../utils/utils';
 
-const OrderItem: FC<TOrderItemComponent> = ({ number, createdAt, name, ingredientsId, isUserOrders, id }) => {
+const OrderItem: FC<TOrderItemComponent> = ({ number, createdAt, name, ingredientsId, isUserOrders, id, status }) => {
     const location = useLocation();
     const { ingredients } = useSelector((store) => store.ingredients);
     const orderIngredients = ingredients.filter((ingredient) => ingredientsId.includes(ingredient._id)).reverse();
@@ -29,15 +28,17 @@ const OrderItem: FC<TOrderItemComponent> = ({ number, createdAt, name, ingredien
         [orderIngredients]
     );
 
+    const classNameOrderItem = `${styles.order__item} ${isUserOrders && styles.order__itemWidth}`;
+
     return (
         <Link to={{ pathname: `${location.pathname}/${id}`, state: { background: location } }} className={styles.order__link}>
-            <li className={styles.order__item}>
+            <li className={classNameOrderItem}>
                 <div className={styles.order__data}>
                     <p className={styles.order__number}>#{number}</p>
                     <p className={styles.order__date}>{formatOrderDate(createdAt)}</p>
                 </div>
                 <p className={styles.order__text}>{name}</p>
-                {/*{isUserOrders && <p className={`${styles.orderStatus} ${status === 'done' && styles.orderDone}`}>{formatStatus(status)}</p>}*/}
+                {isUserOrders && <p className={styles.order__status}>{formatStatus(status)}</p>}
                 <div className={styles.order__data}>
                     <ul className={styles.order__list}>
                         {orderIngredientsShow.map((item, index) => (

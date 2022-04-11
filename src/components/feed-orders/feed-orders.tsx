@@ -14,8 +14,7 @@ const FeedOrders: FC = () => {
     const dispatch = useDispatch();
     const { orders, userOrders } = useSelector((store) => store.feed);
     const isUserOrders = useRouteMatch({ path: "/profile/orders/" });
-    //const currentOrders = isUserOrders ? [...userOrders].reverse() : orders;
-    const currentOrders = isUserOrders ? userOrders : orders;
+    const currentOrders = isUserOrders ? [...userOrders].reverse() : orders;
 
     React.useEffect(
         () => {
@@ -28,6 +27,7 @@ const FeedOrders: FC = () => {
 
     return (
         <section className={styles.feed__orders}>
+            {currentOrders && 
             <ul className={styles.feed__list}>
                 {currentOrders.map((item) => (
                     <OrderItem
@@ -38,9 +38,10 @@ const FeedOrders: FC = () => {
                         createdAt={item.createdAt}
                         name={item.name}
                         ingredientsId={item.ingredients}
+                        status={item.status}
                     />
                 ))}
-            </ul>
+            </ul>}
         </section>
     )
 }

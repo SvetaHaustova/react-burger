@@ -115,7 +115,7 @@ export type TOrderIngredientComponent = {
 
 export type TOrderItemComponent = {
     number: number;
-    status?: string;
+    status: string;
     createdAt: string;
     name: string;
     ingredientsId: Array<string | TIngredientId>;
