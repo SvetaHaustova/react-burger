@@ -1,0 +1,82 @@
+.order__item {
+    width: 584px;
+    box-sizing: border-box;
+    background-color: #1C1C21;
+    border-radius: 40px;
+    composes: p-6 from global;
+}
+
+.order__itemWidth {
+    width: 844px;
+}
+
+.order__data {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order__text {
+    composes: text text_type_main-medium pt-6 pb-4 from global;
+}
+
+.order__number {
+    composes: text text_type_digits-default from global;
+}
+
+.order__date {
+    composes: text text_type_main-default text_color_inactive from global;
+}
+
+.order__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.order__count {
+    composes: text text_type_digits-default from global;
+    font-size: 16px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #1C1C21;
+    opacity: 0.6;
+}
+
+.order__price {
+    display: flex;
+    gap: 9px;
+}
+
+.order__images {
+    margin-right: -20px;
+    position: relative;
+}
+
+.order__image {
+    object-fit: cover;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: #131316;
+    outline: 2px solid rgb(136, 118, 236);
+}
+
+.order__link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.order__status {
+    composes: text text_type_main-default pb-6 from global;
+    color: #00CCCC;
+}

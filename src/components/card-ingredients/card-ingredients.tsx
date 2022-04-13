@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './card-ingredients.module.css';
-import { useDispatch } from 'react-redux';
 import { openIngredient } from '../../services/actions/ingredients';
 import Ingredient from '../ingredient/ingredient';
 import { TIngredient, TCardIngredientsComponent } from '../../utils/types';
+import { useDispatch } from '../../services/hooks';
 
 const CardIngredients = React.forwardRef<HTMLDivElement, TCardIngredientsComponent>(({ ingredients, name }, ref) => {
     const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const CardIngredients = React.forwardRef<HTMLDivElement, TCardIngredientsCompone
             <h2 className="text text_type_main-medium pt-10 pb-6">{name}</h2>
             <ul className={styles.ingredients__list}>
                 {
-                    ingredients.map((ingredient: TIngredient) => (
+                    ingredients.map((ingredient) => (
                         <Ingredient ingredient={ingredient} key={ingredient._id} onClick={() => handleClick(ingredient)} />
                     ))
                 }

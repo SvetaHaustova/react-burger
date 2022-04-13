@@ -24,7 +24,8 @@ export const postOrderRequest = (data: Array<TIngredientId>) => {
     return fetch(`${API_URL}/orders`, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization: `${getCookie('token')}`,
         },
         body: JSON.stringify({ ingredients: data }),
     })

@@ -1,13 +1,13 @@
 import styles from '../page.module.css';
 import React, { FC } from 'react';
 import { Link, useHistory, Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import Form from '../../components/form/form';
 import { resetPassword } from '../../services/actions/auth';
 import { TForm, TInput } from '../../utils/types';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 export const ResetPasswordPage: FC = () => {
-    const { loggedIn, resetPasswordFailed } = useSelector((store: any) => store.auth);
+    const { loggedIn, resetPasswordFailed } = useSelector((store) => store.auth);
     const dispatch = useDispatch();
     const history = useHistory() as any;
     const prevPathname = history.location.state?.prevPathname;

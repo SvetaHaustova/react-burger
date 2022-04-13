@@ -1,14 +1,15 @@
 import styles from './profile-nav.module.css';
 import { FC } from 'react';
 import { NavLink, useRouteMatch, Redirect } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../services/actions/auth';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 const ProfileNav: FC = () => {
     const dispatch = useDispatch();
     const { url } = useRouteMatch();
     const profilePageMatch = useRouteMatch("/profile");
-    const { loggedIn } = useSelector((store: any) => store.auth);
+    const profileOrdersPageMatch = useRouteMatch("/profile/orders");
+    const { loggedIn } = useSelector((store) => store.auth);
 
     const handleLogout = () => {
         dispatch(logout());
@@ -38,6 +39,9 @@ const ProfileNav: FC = () => {
             </ul>
             {profilePageMatch?.isExact && <p className={styles.profile__text}>
                 В этом разделе вы можете изменить свои персональные данные
+            </p>}
+            {profileOrdersPageMatch?.isExact && <p className={styles.profile__text}>
+                В этом разделе вы можете просмотреть свою историю заказов
             </p>}
         </nav>
     )

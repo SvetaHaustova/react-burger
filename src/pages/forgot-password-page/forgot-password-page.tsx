@@ -1,15 +1,15 @@
 import styles from '../page.module.css';
 import React, { FC } from 'react';
 import { Link, useHistory, Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import Form from '../../components/form/form';
 import { forgotPassword } from '../../services/actions/auth';
 import { TForm, TInput } from '../../utils/types';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 export const ForgotPasswordPage: FC = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { loggedIn } = useSelector((store: any) => store.auth);
+    const { loggedIn } = useSelector((store) => store.auth);
 
     const inputs: TInput[] = [
         { name: "email", placeholder: "Укажите e-mail", type: "email"}

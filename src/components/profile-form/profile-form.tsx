@@ -2,13 +2,13 @@ import styles from './profile-form.module.css';
 import React, { FC } from 'react';
 import Form from '../form/form';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector, useDispatch } from 'react-redux';
 import { updateUser } from '../../services/actions/auth';
 import { TForm, TInput } from '../../utils/types';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 const ProfileForm: FC = () => {
     const dispatch = useDispatch();
-    const { user, loggedIn } = useSelector((store: any) => store.auth);
+    const { user, loggedIn } = useSelector((store) => store.auth);
     const [form, setForm] = React.useState<TForm>({ ...user, password: ""});
     const [isSameUserInfo, setIsSameUserInfo] = React.useState<boolean>(false);
 
@@ -16,7 +16,7 @@ const ProfileForm: FC = () => {
         if (loggedIn) {
             setIsSameUserInfo(form.name === user.name && form.email === user.email);
         }
-    }, [form.email, form.name, loggedIn, user.email, user.name])
+    }, [form.email, form.name, loggedIn, user.name, user.email])
 
     const inputs: TInput[] = [
         { name: "name", placeholder: "Имя", type: "text"},

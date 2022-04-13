@@ -3,7 +3,18 @@ import { FC } from 'react';
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { TFormComponent } from '../../utils/types';
 
-const Form: FC<TFormComponent> = ({ inputs, form, icon, disabled, title, buttonText, passwordInput, reverseInput, onChange, onSubmit }) => {
+const Form: FC<TFormComponent> = ({
+    inputs,
+    form,
+    icon,
+    disabled,
+    title,
+    buttonText,
+    passwordInput,
+    reverseInput,
+    onChange,
+    onSubmit
+}) => {
     return (
         <>
             {title && <h2 className={styles.title}>{title}</h2>}

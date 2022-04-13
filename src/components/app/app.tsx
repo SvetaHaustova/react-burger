@@ -1,17 +1,18 @@
 import React, { FC } from 'react';
 import { TLocation } from '../../utils/types';
-import { useSelector, useDispatch } from 'react-redux';
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
+import Order from '../order/order';
 import styles from './app.module.css';
 import { closeOrder } from '../../services/actions/order';
 import { getUser } from '../../services/actions/auth';
 import { getIngredients, closeIngredient } from '../../services/actions/ingredients';
 import { headerModalIngredientDetails } from '../../utils/constants';
 import ProtectedRoute from '../protected-route/protected-route';
+import { useDispatch, useSelector } from '../../services/hooks';
 import {
     HomePage,
     LoginPage,
@@ -20,7 +21,9 @@ import {
     ResetPasswordPage,
     ProfilePage,
     NotFoundPage,
-    IngredientPage
+    IngredientPage,
+    FeedPage,
+    OrderPage
 } from '../../pages';
 
 const App: FC = () => {
@@ -28,7 +31,7 @@ const App: FC = () => {
     const dispatch = useDispatch();
     const location = useLocation<TLocation>();
     const background = location.state && location.state.background;
-    const { orderNumber } = useSelector((store: any) => store.order);
+    const { orderNumber } = useSelector((store) => store.order);
     
     React.useEffect(() => {
         dispatch(getIngredients());
@@ -51,8 +54,8 @@ const App: FC = () => {
                 <Route path="/" exact={true}>
                     <HomePage />
                 </Route>
-                <ProtectedRoute path="/profile">
-                    <ProfilePage />
+                <ProtectedRoute path="/profile/orders/:id" >
+                    <OrderPage />
                 </ProtectedRoute>
                 <Route path="/login">
                     <LoginPage />
@@ -66,9 +69,18 @@ const App: FC = () => {
                 <Route path="/reset-password">
                     <ResetPasswordPage />
                 </Route>
+                <Route path="/feed" exact={true}>
+                    <FeedPage />
+                </Route>
+                <Route path="/feed/:id" exact={true}>
+                    <OrderPage />
+                </Route>
                 <Route path="/ingredients/:id">
                     <IngredientPage />
                 </Route>
+                <ProtectedRoute path="/profile" >
+                    <ProfilePage />
+                </ProtectedRoute>
                 <Route path="*">
                     <NotFoundPage history={history} />
                 </Route>
@@ -79,6 +91,20 @@ const App: FC = () => {
                         <IngredientDetails />
                     </Modal>
                 </Route>
+            }
+            { background &&
+                <Route path="/feed/:id">
+                    <Modal header="Информация о заказе" onClose={closeModalIngredient}>
+                        <Order />
+                    </Modal>
+                </Route>
+            }
+            { background &&
+                <ProtectedRoute path="/profile/orders/:id">
+                    <Modal header="Информация о заказе" onClose={closeModalIngredient}>
+                        <Order />
+                    </Modal>
+                </ProtectedRoute>
             }
             { orderNumber &&
                 <Modal header="" onClose={closeModalOrder}>

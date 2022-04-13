@@ -2,7 +2,6 @@ import styles from './burger-constructor.module.css';
 import React, { FC } from 'react';
 import uuid from 'react-uuid';
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from "react-dnd";
 import { postOrder } from '../../services/actions/order';
 import { addIngredient, removeIngredient, moveIngredient } from '../../services/actions/constructor';
@@ -10,20 +9,21 @@ import IngredientConstructor from '../ingredient-constructor/ingredient-construc
 import { errorTextOrder } from '../../utils/constants';
 import { useHistory } from 'react-router-dom';
 import { TIngredient } from '../../utils/types';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 const BurgerConstructor: FC = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { ingredientsConstructor } = useSelector((store: any) => store.constructor);
-    const { orderRequest, orderFailed } = useSelector((store: any) => store.order);
-    const { loggedIn } = useSelector((store: any) => store.auth);
-    const bunIngredient = ingredientsConstructor?.find((ingredient: TIngredient) => ingredient.type === 'bun');
-    const otherIngredients = ingredientsConstructor?.filter((ingredient: TIngredient) => ingredient.type !== 'bun');
+    const { ingredientsConstructor } = useSelector((store) => store.constructor);
+    const { orderRequest, orderFailed } = useSelector((store) => store.order);
+    const { loggedIn } = useSelector((store) => store.auth);
+    const bunIngredient = ingredientsConstructor?.find((ingredient) => ingredient.type === 'bun');
+    const otherIngredients = ingredientsConstructor?.filter((ingredient) => ingredient.type !== 'bun');
 
     const totalPrice = React.useMemo(
         () =>
             ingredientsConstructor
-            ? ingredientsConstructor.reduce((sum: number, current: TIngredient) => sum + current.price, 0)
+            ? ingredientsConstructor.reduce((sum, current) => sum + current.price, 0)
             : 0,
         [ingredientsConstructor]
     );
@@ -51,7 +51,7 @@ const BurgerConstructor: FC = () => {
 
     const handleOrder = React.useCallback(() => {
         if (loggedIn) {
-            const burgerIngredients = ingredientsConstructor.map(((item: TIngredient) => item._id));
+            const burgerIngredients = ingredientsConstructor.map(((item) => item._id));
             dispatch(postOrder(burgerIngredients));
         } else {
             history.push("/login");
