@@ -12,10 +12,26 @@ export const Order: FC = () => {
     const isUserOrders = useRouteMatch({ path: "/profile/orders/" });
     const { ingredients } = useSelector((store) => store.ingredients);
     const { orders, userOrders } = useSelector((store) => store.feed);
-    const order = orders && orders.find((item) => item._id === id);
-    const userOrder = userOrders && userOrders.find((item) => item._id === id);
+    
+    const order = React.useMemo(
+        () => 
+            orders && orders.find((item) => item._id === id),
+        [orders, id]
+    );
+    
+    const userOrder = React.useMemo(
+        () => 
+            userOrders && userOrders.find((item) => item._id === id),
+        [orders, id]
+    );
+    
     const currentOrder = isUserOrders ? userOrder : order;
-    const orderIngredients = ingredients && ingredients.filter((item) => currentOrder?.ingredients.includes(item._id));
+
+    const orderIngredients = React.useMemo(
+        () => 
+            ingredients && ingredients.filter((item) => currentOrder?.ingredients.includes(item._id)),
+        [ingredients]
+    );
 
     const totalPrice = React.useMemo(
         () =>

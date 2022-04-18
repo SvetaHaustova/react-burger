@@ -1,10 +1,14 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import styles from './order-ingredient.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { TOrderIngredientComponent } from '../../utils/types';
 
 export const OrderIngredient: FC<TOrderIngredientComponent> = ({ ingredient, name, image, currentOrder }) => {
-    const count = currentOrder.ingredients.filter((item) => item === ingredient._id).length;
+    const count = React.useMemo(
+        () => 
+            currentOrder.ingredients.filter((item) => item === ingredient._id).length,
+        [currentOrder]
+    );
     
     return (
         <li className={styles.order__ingredient}> 
