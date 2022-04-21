@@ -48,7 +48,7 @@ export type TAuthState = {
     resetPasswordFailed: boolean;
 };
 
-const authInitialState: TAuthState = {
+export const authInitialState: TAuthState = {
     user: { name: "", email: "" },
     registerRequest: false,
     registerFailed: false,

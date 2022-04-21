@@ -39,7 +39,7 @@ const BurgerConstructor: FC = () => {
     );
 
     const handleDrop = (ingredient: TIngredient) => {
-        if (ingredient.type === "bun" && bunIngredient) {
+        if (ingredient.type === "bun" && bunIngredient && bunIngredient.uuid !== undefined) {
             dispatch(removeIngredient(bunIngredient.uuid));
         } 
         dispatch(addIngredient(ingredient, uuid()));

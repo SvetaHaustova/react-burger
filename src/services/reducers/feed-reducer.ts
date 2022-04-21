@@ -10,7 +10,7 @@ import {
     WS_CONNECTION_ERROR_ORDERS_USER,
     WS_GET_ORDERS_USER
 } from '../actions/feed';
-
+ 
 type TFeedOrdersState = {
     wsConnected: boolean;
     orders: Array<TOrder>;
@@ -19,7 +19,7 @@ type TFeedOrdersState = {
     userOrders: Array<TOrder>
   };
   
-const feedOrdersInitialState: TFeedOrdersState = {
+export const feedOrdersInitialState: TFeedOrdersState = {
     wsConnected: false,
     orders: [],
     total: 0,
