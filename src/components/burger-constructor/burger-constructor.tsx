@@ -80,7 +80,7 @@ const BurgerConstructor: FC = () => {
 
     return (
         <section className={styles.constructor}>
-            <div className={classNameContainer} ref={dropTarget}>
+            <div className={classNameContainer} ref={dropTarget} data-test="constructor">
                 <div className={styles.constructor__bun}>
                     {
                         bunIngredient
@@ -134,7 +134,7 @@ const BurgerConstructor: FC = () => {
             </div>
             <div className={styles.constructor__total}>
                 <div className={styles.constructor__price}>
-                    <p className="text text_type_digits-medium mr-2">{totalPrice}</p>
+                    <p className="text text_type_digits-medium mr-2" data-test="order-price">{totalPrice}</p>
                     <CurrencyIcon type="primary" />
                 </div>
                 <Button type="primary" size="medium" onClick={handleOrder} disabled={disabledButton}>
