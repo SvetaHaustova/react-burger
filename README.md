@@ -1,5 +1,7 @@
 # Проект: Stellar Burgers на React
 
+  Проект можно посмотреть по [ссылке](https://svetlanassi.github.io/react-burger/)
+
 ### При созданиии проекта были использованы следующие технологии:
 
 1. HTML.
@@ -10,6 +12,8 @@
 6. TypeScript.
 7. DnD.
 8. WebSocket.
+9. Jest.
+10. Cypress.
 
 ### В проекте реализован следующий функционал:
 

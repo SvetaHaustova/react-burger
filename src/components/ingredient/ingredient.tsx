@@ -23,7 +23,7 @@ const Ingredient: FC<TIngredientComponent> = ({ ingredient, onClick }) => {
 
     return (
         <Link to={{ pathname: `/ingredients/${ingredient._id}`, state: { background: location } }} className={styles.ingredient__link}>
-            <li className={`${styles.ingredient__item} ${isDrag && styles.ingredient__drag}`} onClick={onClick} ref={dragRef}>
+            <li className={`${styles.ingredient__item} ${isDrag && styles.ingredient__drag}`} onClick={onClick} ref={dragRef} data-test={ingredient._id}>
                 {count > 0 && <Counter count={count} size="default" />}
                 <DragPreviewImage connect={preview} src={image} />
                 <img className={styles.ingredient__image} src={image} alt={name} />

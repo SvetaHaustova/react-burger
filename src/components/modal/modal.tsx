@@ -21,8 +21,8 @@ const Modal: FC<TModalComponent> = ({ children, header, onClose }) => {
     return ReactDOM.createPortal(
         (
             <>
-                <div className={styles.modal}>
-                    <div className={styles.modal__header}>
+                <div className={styles.modal} data-test="modal">
+                    <div className={styles.modal__header} data-test="modal-header">
                         <p className="text text_type_main-large">{header}</p>
                         <CloseIcon type="primary" onClick={onClose} />
                     </div>

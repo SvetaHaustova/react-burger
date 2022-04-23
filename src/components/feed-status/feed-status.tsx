@@ -1,11 +1,21 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import styles from './feed-status.module.css';
 import { useSelector } from '../../services/hooks';
 
 const FeedStatus: FC = () => {
     const { total, totalToday, orders } = useSelector((store) => store.feed);
-    const doneOrders = orders.filter((item) => item.status === "done").slice(0, 15);
-    const inProgressOrders = orders.filter((item) => item.status === "pending").slice(0, 15);
+    
+    const doneOrders = React.useMemo(
+        () => 
+            orders.filter((item) => item.status === "done").slice(0, 15),
+        [orders]
+    );
+    
+    const inProgressOrders = React.useMemo(
+        () => 
+            orders.filter((item) => item.status === "pending").slice(0, 15),
+        [orders]
+    );
 
     return (
         <section className={styles.feed__status}>

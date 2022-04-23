@@ -12,9 +12,9 @@ const BurgerIngredients: FC = () => {
     const sauceRef = React.useRef<HTMLDivElement>(null);
     const mainRef = React.useRef<HTMLDivElement>(null);
     const { ingredients } = useSelector((store) => store.ingredients);
-    const bun = ingredients.filter((ingredient: TIngredient) => ingredient.type === "bun");
-    const sauce = ingredients.filter((ingredient: TIngredient) => ingredient.type === "sauce");
-    const main = ingredients.filter((ingredient: TIngredient) => ingredient.type === "main");
+    const bun = React.useMemo(() => ingredients.filter((ingredient) => ingredient.type === "bun"), [ingredients]);
+    const sauce = React.useMemo(() => ingredients.filter((ingredient) => ingredient.type === "sauce"), [ingredients]);
+    const main = React.useMemo(() => ingredients.filter((ingredient) => ingredient.type === "main"), [ingredients]);
 
     const handleChangeTab = () => {
         const containerTop = containerRef.current?.getBoundingClientRect().top as number;

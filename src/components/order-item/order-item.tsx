@@ -10,7 +10,12 @@ import { formatOrderDate, formatStatus } from '../../utils/utils';
 const OrderItem: FC<TOrderItemComponent> = ({ number, createdAt, name, ingredientsId, isUserOrders, id, status }) => {
     const location = useLocation();
     const { ingredients } = useSelector((store) => store.ingredients);
-    const orderIngredients = ingredients.filter((ingredient) => ingredientsId.includes(ingredient._id)).reverse();
+    
+    const orderIngredients = React.useMemo(
+        () => 
+            ingredients.filter((ingredient) => ingredientsId.includes(ingredient._id)).reverse(),
+        [ingredients]
+    );
 
     const orderIngredientsShow = orderIngredients.length > MAX_SHOW_INGREDIENT
         ? orderIngredients.slice(0, MAX_SHOW_INGREDIENT)

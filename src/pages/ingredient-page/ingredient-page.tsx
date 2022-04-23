@@ -8,9 +8,11 @@ import { useSelector } from '../../services/hooks';
 export const IngredientPage: FC = () => {
     const { id } = useParams<TParams>();
     const { ingredients } = useSelector((store) => store.ingredients);
+    
     const currentIngredient = React.useMemo(
             () => ingredients.find((item) => item._id === id),
-        [ingredients, id]);
+        [ingredients, id]
+    );
 
     return (
         <main className={styles.main}>

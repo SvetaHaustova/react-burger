@@ -51,7 +51,7 @@ const App: FC = () => {
         <div className={styles.page}>
             <AppHeader />
             <Switch location={background || location}>
-                <Route path="/" exact={true}>
+                <Route path={["/", "/react-burger"]} exact={true}>
                     <HomePage />
                 </Route>
                 <ProtectedRoute path="/profile/orders/:id" >

@@ -17,8 +17,18 @@ const BurgerConstructor: FC = () => {
     const { ingredientsConstructor } = useSelector((store) => store.constructor);
     const { orderRequest, orderFailed } = useSelector((store) => store.order);
     const { loggedIn } = useSelector((store) => store.auth);
-    const bunIngredient = ingredientsConstructor?.find((ingredient) => ingredient.type === 'bun');
-    const otherIngredients = ingredientsConstructor?.filter((ingredient) => ingredient.type !== 'bun');
+    
+    const bunIngredient = React.useMemo(
+        () => 
+            ingredientsConstructor?.find((ingredient) => ingredient.type === 'bun'), 
+        [ingredientsConstructor]
+    );
+    
+    const otherIngredients = React.useMemo(
+        () => 
+            ingredientsConstructor?.filter((ingredient) => ingredient.type !== 'bun'),
+        [ingredientsConstructor]
+    );
 
     const totalPrice = React.useMemo(
         () =>
@@ -29,7 +39,7 @@ const BurgerConstructor: FC = () => {
     );
 
     const handleDrop = (ingredient: TIngredient) => {
-        if (ingredient.type === "bun" && bunIngredient) {
+        if (ingredient.type === "bun" && bunIngredient && bunIngredient.uuid !== undefined) {
             dispatch(removeIngredient(bunIngredient.uuid));
         } 
         dispatch(addIngredient(ingredient, uuid()));
@@ -70,7 +80,7 @@ const BurgerConstructor: FC = () => {
 
     return (
         <section className={styles.constructor}>
-            <div className={classNameContainer} ref={dropTarget}>
+            <div className={classNameContainer} ref={dropTarget} data-test="constructor">
                 <div className={styles.constructor__bun}>
                     {
                         bunIngredient
@@ -124,7 +134,7 @@ const BurgerConstructor: FC = () => {
             </div>
             <div className={styles.constructor__total}>
                 <div className={styles.constructor__price}>
-                    <p className="text text_type_digits-medium mr-2">{totalPrice}</p>
+                    <p className="text text_type_digits-medium mr-2" data-test="order-price">{totalPrice}</p>
                     <CurrencyIcon type="primary" />
                 </div>
                 <Button type="primary" size="medium" onClick={handleOrder} disabled={disabledButton}>

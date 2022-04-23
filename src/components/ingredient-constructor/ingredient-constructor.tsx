@@ -36,7 +36,11 @@ const IngredientConstructor: FC<TIngredientConstructorComponent> = ({ ingredient
                 text={name}
                 price={price}
                 thumbnail={image}
-                handleClose={() => onDelete(uuid)}
+                handleClose={() => {
+                    if (uuid !== undefined) {
+                        onDelete(uuid) 
+                    }
+                }}
             />
         </li>
     )

@@ -9,7 +9,8 @@ const IngredientDetails: FC = () => {
     const { id } = useParams<TParams>();
     const currentIngredient = React.useMemo(
             () => ingredients.find((item) => item._id === id),
-        [ingredients, id]);
+        [ingredients, id]
+    );
 
     return(
         <div className={styles.container}>
